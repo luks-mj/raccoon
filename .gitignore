@@ -18,7 +18,10 @@ target/
 *.iws
 *.iml
 *.ipr
-
+application.yml
+logback-spring.xml
+mybatis-config.xml
+pom.xml
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
