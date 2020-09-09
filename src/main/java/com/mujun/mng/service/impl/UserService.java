@@ -2,6 +2,7 @@ package com.mujun.mng.service.impl;
 
 import com.mujun.mng.commons.exception.BaseException;
 import com.mujun.mng.dao.UserDao;
+import com.mujun.mng.model.User;
 import com.mujun.mng.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,5 +20,11 @@ public class UserService implements IUserService {
     public List<Map<String, Object>> queryUserInfo() throws BaseException {
         return userDao.queryUserInfo();
     }
+
+    @Override
+    public Integer insert(User user) throws BaseException {
+        return userDao.insert(user);
+    }
+
 
 }

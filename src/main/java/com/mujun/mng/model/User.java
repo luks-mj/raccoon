@@ -1,19 +1,14 @@
 package com.mujun.mng.model;
 
+import com.baomidou.mybatisplus.annotation.TableName;
+
+@TableName( "user")
 public class User {
 
-    private String userId;
     private String name;
     private Integer age;
     private String password;
 
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
 
     public String getName() {
         return name;
@@ -42,7 +37,6 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "userId='" + userId + '\'' +
                 ", name='" + name + '\'' +
                 ", age=" + age +
                 ", password='" + password + '\'' +

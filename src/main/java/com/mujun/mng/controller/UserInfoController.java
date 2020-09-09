@@ -2,6 +2,7 @@ package com.mujun.mng.controller;
 
 
 import com.mujun.mng.commons.model.RestResult;
+import com.mujun.mng.model.User;
 import com.mujun.mng.service.impl.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,6 +28,20 @@ public class UserInfoController {
         RestResult queryResult = new RestResult();
         List<Map<String, Object>> list = userService.queryUserInfo();
         queryResult.setData(list);
+        queryResult.setCode(200);
+        return  queryResult;
+    }
+
+
+    @ApiOperation(value="新增用户",notes="用户信息查询")
+    @RequestMapping(value = "/insertUser", method = RequestMethod.POST)
+    public RestResult insertUser(){
+        RestResult queryResult = new RestResult();
+        User user = new User();
+        user.setAge(18);
+        user.setName("凯撒");
+        Integer result = userService.insert(user);
+        queryResult.setData(result);
         queryResult.setCode(200);
         return  queryResult;
     }
