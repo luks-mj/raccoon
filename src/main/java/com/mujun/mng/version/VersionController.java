@@ -1,13 +1,11 @@
 package com.mujun.mng.version;
 
 import com.alibaba.fastjson.JSON;
-import com.mujun.mng.commons.smo.impl.SnifferDBSMOImpl;
 import com.mujun.mng.commons.utils.DateUtil;
 import com.mujun.mng.commons.utils.ExceptionUtils;
 import com.mujun.mng.model.VersionModel;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,8 +21,6 @@ import java.util.Map;
 @RestController
 public class VersionController {
 
-    @Autowired
-    private SnifferDBSMOImpl snifferDBSMO;
 
     private String startTime = DateUtil.getNowTime();
 
@@ -53,13 +49,6 @@ public class VersionController {
         returnMap.put("version", sd.format(f.lastModified()));
         return JSON.toJSONString(returnMap);
     }
-
-    @ApiOperation(value = "dbSniffer", notes = "dbSniffer")
-    @GetMapping("dbSniffer")
-    public String dbTest() {
-        return snifferDBSMO.addDBTest();
-    }
-
 
     @ApiOperation(value = "getConstant", notes = "getConstant")
     @PostMapping("getConstant")
