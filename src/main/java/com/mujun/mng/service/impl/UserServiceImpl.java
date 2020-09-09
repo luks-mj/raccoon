@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service("UserService")
-public class UserService implements IUserService {
+public class UserServiceImpl implements IUserService {
 
     @Autowired
     private UserDao userDao;

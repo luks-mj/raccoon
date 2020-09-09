@@ -4,7 +4,7 @@ package com.mujun.mng.controller;
 import com.mujun.mng.commons.config.CustomIdGenerator;
 import com.mujun.mng.commons.model.RestResult;
 import com.mujun.mng.model.User;
-import com.mujun.mng.service.impl.UserService;
+import com.mujun.mng.service.impl.UserServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class UserInfoController {
 
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @Autowired
     private CustomIdGenerator customIdGenerator;
