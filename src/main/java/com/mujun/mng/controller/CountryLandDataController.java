@@ -4,7 +4,6 @@ package com.mujun.mng.controller;
 import com.mujun.mng.commons.config.SrConstantMDA;
 import com.mujun.mng.commons.model.RestResult;
 import com.mujun.mng.commons.utils.ExcelUtil;
-import com.mujun.mng.model.ContryLandModel;
 import com.mujun.mng.service.impl.CountryLandServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -40,22 +40,27 @@ public class CountryLandDataController {
         RestResult result = new RestResult();
         List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
         try {
-            int MAX_AMOUNT = SrConstantMDA.BATCH_INST_MAX_AMOUNT;
-            List<String> reList = ExcelUtil.readOneCol(file, false);
-            if (reList == null || reList.size() == 0) {
-                result.setCode(SrConstantMDA.INTF_RET_CODE_EXCEPTION);
-                result.setData(resultList);
-                result.setMessage("文件导入为空或者文件导入失败！");
-                return result;
-            } else if (reList.size() > MAX_AMOUNT) {
-                result.setCode(SrConstantMDA.INTF_RET_CODE_EXCEPTION);
-                result.setData(resultList);
-                result.setMessage("文件导入一次最多支持" + MAX_AMOUNT + "条记录!");
-                return result;
+           String fileName = file.getOriginalFilename();
+            String str = fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length());
+            if (str.toUpperCase().equals("XLS") || str.toUpperCase().equals("XLSX")) {
+                InputStream is = file.getInputStream();
+                int MAX_AMOUNT = SrConstantMDA.BATCH_INST_MAX_AMOUNT;
+                List<String[]> reList = ExcelUtil.readOneCol(is, 0,false);
+                if (reList == null || reList.size() == 0) {
+                    result.setCode(SrConstantMDA.INTF_RET_CODE_EXCEPTION);
+                    result.setData(resultList);
+                    result.setMessage("文件导入为空或者文件导入失败！");
+                    return result;
+                } else if (reList.size() > MAX_AMOUNT) {
+                    result.setCode(SrConstantMDA.INTF_RET_CODE_EXCEPTION);
+                    result.setData(resultList);
+                    result.setMessage("文件导入一次最多支持" + MAX_AMOUNT + "条记录!");
+                    return result;
+                }
+                countryLandService.batchImport(reList);
+                result.setCode(HttpStatus.OK.value());
+                result.setMessage("导入完成！");
             }
-
-
-
         } catch (Exception e) {
             logger.debug("国土数据导入异常：{}", e.getMessage());
             result.setCode(SrConstantMDA.INTF_RET_CODE_EXCEPTION);
@@ -73,7 +78,7 @@ public class CountryLandDataController {
         RestResult result = new RestResult();
         List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
         try {
-          List<ContryLandModel> results =  countryLandService.queryCountryLandData();
+         Map<String,Object> results =  countryLandService.queryCountryLandData();
           result.setData(results);
           result.setMessage("查询成功");
           result.setCode(HttpStatus.OK.value());

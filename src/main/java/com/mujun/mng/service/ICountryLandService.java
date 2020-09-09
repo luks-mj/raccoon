@@ -1,11 +1,13 @@
 package com.mujun.mng.service;
 
 import com.mujun.mng.commons.exception.BaseException;
-import com.mujun.mng.model.ContryLandModel;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ICountryLandService {
 
-      List<ContryLandModel> queryCountryLandData () throws BaseException;
+      Map<String, Object> queryCountryLandData () throws BaseException;
+
+      void batchImport(List<String[]>  list) throws BaseException;
 }

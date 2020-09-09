@@ -10,7 +10,7 @@ CREATE TABLE `db_country_land` (
   `REGISTER_AREA` decimal(18,0) DEFAULT NULL COMMENT '登记用地面积',
   `LESSEE_AREA` decimal(18,0) NOT NULL COMMENT '承租用地面积',
   `LEASE_AREA` decimal(18,0) NOT NULL COMMENT '出租用地面积',
-  `USER_ID`   decimal(18,0) NOT NULL COMMENT '记录导入用户',
+  `USER_ID`   decimal(18,0) DEFAULT NULL COMMENT '记录导入用户',
   `CREATE_DATE` datetime DEFAULT NULL COMMENT '记录首次创建的时间。',
   `UPDATE_DATE` datetime DEFAULT NULL COMMENT '记录每次修改的时间。',
   `REMARK` varchar(2000) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '记录备注。',

@@ -10,7 +10,7 @@ import java.util.Date;
  * 国土数据模型
  */
 @TableName("db_country_land")
-public class ContryLandModel implements Serializable {
+public class CountryLandModel implements Serializable {
 
     private Long id;
 
@@ -139,5 +139,21 @@ public class ContryLandModel implements Serializable {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    @Override
+    public String toString() {
+        return "ContryLandModel{" +
+                "id=" + id +
+                ", enterPriseName='" + enterPriseName + '\'' +
+                ", enterPriseCode='" + enterPriseCode + '\'' +
+                ", registerArea=" + registerArea +
+                ", lesseeArea=" + lesseeArea +
+                ", leaseArea=" + leaseArea +
+                ", userId=" + userId +
+                ", createDate=" + createDate +
+                ", updateDate=" + updateDate +
+                ", remark='" + remark + '\'' +
+                '}';
     }
 }

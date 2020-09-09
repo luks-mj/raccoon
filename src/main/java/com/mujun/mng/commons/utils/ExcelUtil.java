@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -173,23 +174,69 @@ public class ExcelUtil {
      * @throws Exception
      * @throws InvalidFormatException
      */
-    public static List<String> readOneCol(MultipartFile file, boolean isFirstLineNeed)
+    public static List<String[]> readOneCol(InputStream is, int numSheet,boolean isFirstrow)
             throws Exception {
+        Sheet sheet = getWorkBookSheet(is,numSheet);
+        List<String[]> reslist = readOneRowCols(sheet,isFirstrow);
+        return reslist;
+    }
 
-        List<String[]> list = ExcelUtil.readExcel(file, 1, isFirstLineNeed);
-        List<String> onColList = null;
 
-        if (list != null && !list.isEmpty()) {
-            onColList = new ArrayList<String>();
-            for (String[] row : list) {
-                if(CommonUtil.isNotBlank(row[0])){
-                    onColList.add(row[0]);
+    /**
+     * 获取每行数据,封装成对象返回
+     *
+     * @param sheet Sheet
+     * @return List
+     */
+    public static List<String[]> readOneRowCols(Sheet sheet,boolean isFirstRead) {
+        String msgNow;
+        List<String[]>  reList = new ArrayList<>();
+        for (Iterator rowIterator = sheet.rowIterator(); rowIterator.hasNext(); ) {
+            if (!isFirstRead) {
+                rowIterator.next();// 从第二行开始读
+            }
+            Row rowNow = (Row) rowIterator.next();
+            int i = 0;
+            Map<String, Object> map = new HashMap<>();
+            String [] str = new String[10];
+            i=0;
+            for (Cell cellNow : rowNow) {
+                if (cellNow != null) {
+                    // 如果是数字
+                    if (cellNow.getCellType() == Cell.CELL_TYPE_NUMERIC) {
+                        double d = cellNow.getNumericCellValue();
+                        BigDecimal bd = new BigDecimal(d);
+                        msgNow = bd.toString();
+                    } else {
+                        msgNow = cellNow.getStringCellValue();
+                    }
+                    msgNow = msgNow.trim();
+                    str[i] = msgNow;
+                    i++;
                 }
             }
+            reList.add(str);
         }
-
-        return onColList;
+        return reList;
     }
+
+    /**
+     * 从文件输入流中读取excel的第某个sheet
+     *
+     * @param is
+     * @return
+     * @throws Exception
+     */
+    public static Sheet getWorkBookSheet(InputStream is,int numSheet) throws Exception {
+        Workbook wb = null;
+        Sheet sheet = null;
+        if (is != null) {
+            wb = WorkbookFactory.create(is);
+            sheet = wb.getSheetAt(numSheet);
+        }
+        return sheet;
+    }
+
 
     public static boolean isEmpty (String cell) {
 
