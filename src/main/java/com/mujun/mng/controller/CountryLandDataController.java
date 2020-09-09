@@ -2,6 +2,7 @@ package com.mujun.mng.controller;
 
 
 import com.mujun.mng.commons.config.SrConstantMDA;
+import com.mujun.mng.commons.exception.BaseException;
 import com.mujun.mng.commons.model.RestResult;
 import com.mujun.mng.commons.utils.ExcelUtil;
 import com.mujun.mng.service.impl.CountryLandServiceImpl;
@@ -82,7 +83,7 @@ public class CountryLandDataController {
           result.setData(results);
           result.setMessage("查询成功");
           result.setCode(HttpStatus.OK.value());
-        } catch (Exception e) {
+        } catch (BaseException e) {
             logger.debug("国土数据查询异常：{}", e.getMessage());
             result.setCode(SrConstantMDA.INTF_RET_CODE_EXCEPTION);
             result.setData(resultList);
