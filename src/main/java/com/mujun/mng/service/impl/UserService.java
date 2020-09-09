@@ -1,5 +1,6 @@
 package com.mujun.mng.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.mujun.mng.commons.exception.BaseException;
 import com.mujun.mng.dao.UserDao;
 import com.mujun.mng.model.User;
@@ -18,6 +19,7 @@ public class UserService implements IUserService {
 
     @Override
     public List<Map<String, Object>> queryUserInfo() throws BaseException {
+        PageHelper.startPage(1, 5, false);
         return userDao.queryUserInfo();
     }
 
