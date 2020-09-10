@@ -9,6 +9,7 @@ import com.mujun.mng.dao.CountryLandDao;
 import com.mujun.mng.model.CountryLandModel;
 import com.mujun.mng.service.ICountryLandService;
 import com.mujun.mng.service.mapperservice.impl.QueryCountryLandServiceImpl;
+import com.mujun.mng.vo.CountryLandModeVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,13 +28,27 @@ public class CountryLandServiceImpl implements ICountryLandService {
 
 
     @Override
-    public Map<String, Object> queryCountryLandData() throws BaseException {
+    public Map<String, Object> queryCountryLandData(CountryLandModeVo countryLandModeVo) throws BaseException {
 
-        int pageNo = 1;
+        int pageNo = 15;
         int pageSize = 0;
         QueryWrapper<CountryLandModel> wrapper = new QueryWrapper<CountryLandModel>();
         Map<String, Object> resultMap = new HashMap<> ();
-
+        if (!org.springframework.util.StringUtils.isEmpty(countryLandModeVo.getPageNo())){
+            pageNo = countryLandModeVo.getPageNo();
+        }
+        if (!org.springframework.util.StringUtils.isEmpty(countryLandModeVo.getPageSize())){
+            pageSize = countryLandModeVo.getPageSize();
+        }
+        if (!org.springframework.util.StringUtils.isEmpty(countryLandModeVo.getEnterpriseCode())){
+                wrapper.eq("enterprise_code",countryLandModeVo.getEnterpriseCode());
+        }
+        if (!org.springframework.util.StringUtils.isEmpty(countryLandModeVo.getEnterpriseName())){
+            wrapper.eq("enterprise_name",countryLandModeVo.getEnterpriseName());
+        }
+        if (!org.springframework.util.StringUtils.isEmpty(countryLandModeVo.getCreateDate())){
+            wrapper.like("create_date",countryLandModeVo.getCreateDate());
+        }
         Page page = PageHelper.startPage(pageNo, pageSize,true);
         List<CountryLandModel> list =  countryLandDao.selectList(wrapper);
         Map<String,Object> pager = new HashMap<>();

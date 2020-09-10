@@ -16,5 +16,5 @@ CREATE TABLE `db_country_land` (
   `REMARK` varchar(2000) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '记录备注。',
   PRIMARY KEY (`ID`),
   UNIQUE KEY `idx_enterprise_code` (`ENTERPRISE_CODE`),
-  KEY `idx_enterprise_name_updatetime` (`UPDATE_DATE`)
+  KEY `idx_enterprise_name_createtime` (`CREATE_DATE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='记录企业国土数据资源数据信息';

@@ -6,6 +6,7 @@ import com.mujun.mng.commons.exception.BaseException;
 import com.mujun.mng.commons.model.RestResult;
 import com.mujun.mng.commons.utils.ExcelUtil;
 import com.mujun.mng.service.impl.CountryLandServiceImpl;
+import com.mujun.mng.vo.CountryLandModeVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -75,11 +76,11 @@ public class CountryLandDataController {
     // 国土资源数据导入
     @ApiOperation(value = "国土资源数据查询", notes = "国土数据查询")
     @RequestMapping(value = "/countryLand/queryAll", method = RequestMethod.GET)
-    public RestResult queryCountryLandData( Model model, HttpServletRequest request) {
+    public RestResult queryCountryLandData( HttpServletRequest request,CountryLandModeVo countryLandModeVo) {
         RestResult result = new RestResult();
         List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
         try {
-         Map<String,Object> results =  countryLandService.queryCountryLandData();
+         Map<String,Object> results =  countryLandService.queryCountryLandData(countryLandModeVo);
           result.setData(results);
           result.setMessage("查询成功");
           result.setCode(HttpStatus.OK.value());
