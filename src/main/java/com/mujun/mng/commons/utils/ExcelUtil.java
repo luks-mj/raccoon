@@ -176,7 +176,7 @@ public class ExcelUtil {
      * @throws Exception
      */
     public static List<String[]> readOneCol(InputStream is, int numSheet,boolean isFirstrow)
-            throws Exception {
+            throws BaseException,Exception {
         Sheet sheet = getWorkBookSheet(is,numSheet);
         List<String[]> reslist = readOneRowCols(sheet,isFirstrow);
         return reslist;
@@ -195,12 +195,12 @@ public class ExcelUtil {
         for (Iterator rowIterator = sheet.rowIterator(); rowIterator.hasNext(); ) {
             if (!isFirstRead) {
                 rowIterator.next();// 从第二行开始读
+                isFirstRead = true;
+                continue;
             }
             Row rowNow = (Row) rowIterator.next();
             int i = 0;
-            Map<String, Object> map = new HashMap<>();
             String [] str = new String[10];
-            i=0;
             for (Cell cellNow : rowNow) {
                 if (cellNow != null) {
                     // 如果是数字
