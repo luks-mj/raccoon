@@ -107,7 +107,7 @@ public class CountryLandDataController {
             result.setMessage("删除成功");
             result.setCode(HttpStatus.OK.value());
         } catch (BaseException e) {
-            logger.debug("国土数据查询异常：{}", e.getMessage());
+            logger.debug("国土数据删除异常：{}", e.getMessage());
             result.setCode(SrConstantMDA.INTF_RET_CODE_EXCEPTION);
             result.setData(resultList);
             result.setMessage(e.getMessage());
