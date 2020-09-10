@@ -93,5 +93,26 @@ public class CountryLandDataController {
         return result;
     }
 
+    // 国土资源数据删除
+    @ApiOperation(value = "国土资源数据删除", notes = "国土数据删除")
+    @RequestMapping(value = "/countryLand/deleteByCode", method = RequestMethod.DELETE)
+    public RestResult deleteCountryLandData( HttpServletRequest request,CountryLandModeVo countryLandModeVo) {
+        RestResult result = new RestResult();
+        List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
+        try {
+            countryLandService.deleteCountryLandData(countryLandModeVo);
+            CountryLandModeVo model = new CountryLandModeVo();
+            Map<String,Object> results =  countryLandService.queryCountryLandData(model);
+            result.setData(results);
+            result.setMessage("删除成功");
+            result.setCode(HttpStatus.OK.value());
+        } catch (BaseException e) {
+            logger.debug("国土数据查询异常：{}", e.getMessage());
+            result.setCode(SrConstantMDA.INTF_RET_CODE_EXCEPTION);
+            result.setData(resultList);
+            result.setMessage(e.getMessage());
+        }
+        return result;
+    }
 
 }

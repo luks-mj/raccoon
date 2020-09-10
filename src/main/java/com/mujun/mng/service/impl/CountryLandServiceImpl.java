@@ -87,4 +87,22 @@ public class CountryLandServiceImpl implements ICountryLandService {
         }
         queryCountryLandService.saveBatch(entityList);
     }
+
+    @Override
+    public void deleteCountryLandData(CountryLandModeVo countryLandModeVo) throws BaseException {
+        QueryWrapper<CountryLandModel> wrapper = new QueryWrapper<CountryLandModel>();
+         if (org.springframework.util.StringUtils.isEmpty(countryLandModeVo.getEnterpriseCode()) &&
+                 org.springframework.util.StringUtils.isEmpty(countryLandModeVo.getEnterpriseName()) )
+         {
+             throw new BaseException("请至少选择一项企业名称，或者企业统一认证码！");
+         }
+        if (!org.springframework.util.StringUtils.isEmpty(countryLandModeVo.getEnterpriseCode())){
+            wrapper.eq("enterprise_code",countryLandModeVo.getEnterpriseCode());
+        }
+        if (!org.springframework.util.StringUtils.isEmpty(countryLandModeVo.getEnterpriseName())){
+            wrapper.eq("enterprise_name",countryLandModeVo.getEnterpriseName());
+        }
+        queryCountryLandService.remove(wrapper);
+    }
+
 }
