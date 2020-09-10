@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Api(value = "国土资源数据导入", tags = {"CountryLandDataController"})
+@Api(value = "国土资源数据导入", tags = {"CountryLandDataController"},description ="国土资源管理")
 @RestController
 public class CountryLandDataController {
 

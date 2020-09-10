@@ -6,7 +6,7 @@ package com.mujun.mng.commons.config;
  */
 public class SrConstantMDA {
 
-    public static final String VERSION = new String("2019-06-24");
+    public static final String VERSION = new String("2020-09-10");
 
     //导出文件存放根目录
     //public static final String EXPORT_FILE_HOME = new String("/app/data/sr");

@@ -47,7 +47,7 @@ public class Swagger2Config {
         return new ApiInfoBuilder()
                 .title("浙江亩均系统API文档")
                 .description("")
-                .version("1.0")
+                .version(SrConstantMDA.VERSION)
                 .license("亩均科技")
                 .licenseUrl("http://www.baidu.com/")
                 .build();
