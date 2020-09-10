@@ -5,7 +5,6 @@ import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -13,7 +12,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * ID 生成器，根据传入的实体类对象生成主键
  * author chenjun
  */
-@Component
+//@Component
 public class CustomIdGenerator implements IdentifierGenerator {
     private static Logger logger = LoggerFactory.getLogger(CustomIdGenerator.class);
 

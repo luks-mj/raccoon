@@ -167,12 +167,13 @@ public class ExcelUtil {
     }
 
     /**
-     * 解析Excel
-     * Z.B
-     * @param file 需要解析的文件
-     * @param isFirstLineNeed 是否需要第一行
+     *
+     * @param is 文件流
+     * @param numSheet  第几个sheet 页
+     * @param isFirstrow 是否从第一行读取
+     * @return List<String[]>
+     * @author chenjun
      * @throws Exception
-     * @throws InvalidFormatException
      */
     public static List<String[]> readOneCol(InputStream is, int numSheet,boolean isFirstrow)
             throws Exception {

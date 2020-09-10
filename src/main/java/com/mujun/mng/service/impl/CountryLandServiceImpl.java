@@ -1,9 +1,9 @@
 package com.mujun.mng.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.mujun.mng.commons.config.CustomIdGenerator;
 import com.mujun.mng.commons.exception.BaseException;
 import com.mujun.mng.dao.CountryLandDao;
 import com.mujun.mng.model.CountryLandModel;
@@ -25,8 +25,6 @@ public class CountryLandServiceImpl implements ICountryLandService {
     @Autowired
     private QueryCountryLandServiceImpl queryCountryLandService;
 
-    @Autowired
-    private CustomIdGenerator customIdGenerator;
 
     @Override
     public Map<String, Object> queryCountryLandData() throws BaseException {
@@ -52,10 +50,10 @@ public class CountryLandServiceImpl implements ICountryLandService {
     @Override
     public void batchImport(List<String[]> list) throws BaseException {
         List<CountryLandModel> entityList = new ArrayList<>(list.size());
-            CountryLandModel countryLandModel = new CountryLandModel();
             for (String[] str : list) {
+                CountryLandModel countryLandModel = new CountryLandModel();
                 if (str.length > 5) {
-                    countryLandModel.setId(customIdGenerator.nextId(CountryLandModel.class));
+                    countryLandModel.setId(IdWorker.getId(countryLandModel));
                     countryLandModel.setEnterPriseName(StringUtils.isEmpty(str[0]) ? " " : str[0]);
                     countryLandModel.setEnterPriseCode(StringUtils.isEmpty(str[1]) ? " " : str[1]);
                     countryLandModel.setRegisterArea(StringUtils.isEmpty(str[2]) ? 0 : Long.valueOf(str[2]));

@@ -1,42 +1,40 @@
 package com.mujun.mng.controller;
 
 
-import com.mujun.mng.commons.config.CustomIdGenerator;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.mujun.mng.commons.model.RestResult;
 import com.mujun.mng.model.User;
 import com.mujun.mng.service.impl.UserServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.Map;
-
 @Api(value="UserInfoController",tags={"UserInfoController"},description ="用户信息查询控制类")
 @RestController
 public class UserInfoController {
+    private static Logger logger = LoggerFactory.getLogger(UserInfoController.class);
 
 
     @Autowired
     private UserServiceImpl userService;
 
-    @Autowired
-    private CustomIdGenerator customIdGenerator;
 
 
     @ApiOperation(value="查询用户",notes="用户信息查询")
     @RequestMapping(value = "/getUserInfo", method = RequestMethod.GET)
     public RestResult queryUserInfo(){
         RestResult queryResult = new RestResult();
-        List<Map<String, Object>> list = userService.queryUserInfo();
-        Long id = customIdGenerator.nextId(User.class);
-        Long id2 = customIdGenerator.nextId(UserInfoController.class);
-        queryResult.setMessage(id.toString()+"和"+id2.toString());
-        queryResult.setData(list);
+//        List<Map<String, Object>> list = userService.queryUserInfo();
+        Long id1 = IdWorker.getId(new User());
+        Long id2 = IdWorker.getId();
+        logger.info("Id1生成值{}，id2生成主键值->:{}", id1, id2);
+        queryResult.setData(id2);
         queryResult.setCode(200);
         return  queryResult;
     }
