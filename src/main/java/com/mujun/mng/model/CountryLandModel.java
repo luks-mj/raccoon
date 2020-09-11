@@ -35,19 +35,19 @@ public class CountryLandModel implements Serializable {
      * 登记用地面积
      */
     @TableField(value = "register_area")
-    private Long registerArea;
+    private Double registerArea;
 
     /**
      * 承租用地面积
      */
     @TableField(value = "lessee_area")
-    private Long lesseeArea;
+    private Double lesseeArea;
 
     /**
      * 出租用地面积
      */
     @TableField(value = "lease_area")
-    private Long leaseArea;
+    private Double leaseArea;
 
     /**
      * 导入用户
@@ -96,27 +96,27 @@ public class CountryLandModel implements Serializable {
         this.enterPriseCode = enterPriseCode;
     }
 
-    public Long getRegisterArea() {
+    public Double getRegisterArea() {
         return registerArea;
     }
 
-    public void setRegisterArea(Long registerArea) {
+    public void setRegisterArea(Double registerArea) {
         this.registerArea = registerArea;
     }
 
-    public Long getLesseeArea() {
+    public Double getLesseeArea() {
         return lesseeArea;
     }
 
-    public void setLesseeArea(Long lesseeArea) {
+    public void setLesseeArea(Double lesseeArea) {
         this.lesseeArea = lesseeArea;
     }
 
-    public Long getLeaseArea() {
+    public Double getLeaseArea() {
         return leaseArea;
     }
 
-    public void setLeaseArea(Long leaseArea) {
+    public void setLeaseArea(Double leaseArea) {
         this.leaseArea = leaseArea;
     }
 

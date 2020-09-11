@@ -35,7 +35,7 @@ public class CountryTaxationModel implements Serializable {
      * 国税缴纳金额
      */
     @TableField(value = "taxation_data")
-    private Long taxationData;
+    private Double taxationData;
 
     /**
      * 国税费用明细
@@ -90,11 +90,11 @@ public class CountryTaxationModel implements Serializable {
         this.enterPriseCode = enterPriseCode;
     }
 
-    public Long getTaxationData() {
+    public Double getTaxationData() {
         return taxationData;
     }
 
-    public void setTaxationData(Long taxationData) {
+    public void setTaxationData(Double taxationData) {
         this.taxationData = taxationData;
     }
 

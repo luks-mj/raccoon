@@ -71,9 +71,9 @@ public class CountryLandServiceImpl implements ICountryLandService {
                     countryLandModel.setId(IdWorker.getIdStr(countryLandModel));
                     countryLandModel.setEnterPriseName(StringUtils.isEmpty(str[0]) ? " " : str[0]);
                     countryLandModel.setEnterPriseCode(StringUtils.isEmpty(str[1]) ? " " : str[1]);
-                    countryLandModel.setRegisterArea(StringUtils.isEmpty(str[2]) ? 0 : Long.valueOf(str[2]));
-                    countryLandModel.setLesseeArea(StringUtils.isEmpty(str[3]) ? 0 : Long.valueOf(str[3]));
-                    countryLandModel.setLeaseArea(StringUtils.isEmpty(str[4]) ? 0 : Long.valueOf(str[4]));
+                    countryLandModel.setRegisterArea(StringUtils.isEmpty(str[2]) ? 0 : Double.valueOf(str[2]));
+                    countryLandModel.setLesseeArea(StringUtils.isEmpty(str[3]) ? 0 : Double.valueOf(str[3]));
+                    countryLandModel.setLeaseArea(StringUtils.isEmpty(str[4]) ? 0 : Double.valueOf(str[4]));
                     countryLandModel.setUserId(null);
                     countryLandModel.setCreateDate(new Date());
                     countryLandModel.setUpdateDate(new Date());

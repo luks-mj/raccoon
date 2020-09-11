@@ -36,7 +36,7 @@ public class CountryTaxationServiceImpl implements ICountryTaxationService {
                 countryTaxationModel.setId(IdWorker.getIdStr(countryTaxationModel));
                 countryTaxationModel.setEnterPriseName(StringUtils.isEmpty(str[0]) ? " " : str[0]);
                 countryTaxationModel.setEnterPriseCode(StringUtils.isEmpty(str[1]) ? " " : str[1]);
-                countryTaxationModel.setTaxationData(StringUtils.isEmpty(str[2]) ? 0 : Long.valueOf(str[2]));
+                countryTaxationModel.setTaxationData(StringUtils.isEmpty(str[2]) ? 0 : Double.valueOf(str[2]));
                 countryTaxationModel.setTaxationDetail(StringUtils.isEmpty(str[3]) ? " " : str[3]);
                 countryTaxationModel.setUserId(null);
                 countryTaxationModel.setCreateDate(new Date());
