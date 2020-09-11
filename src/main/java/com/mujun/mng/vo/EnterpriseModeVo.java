@@ -1,16 +1,29 @@
 package com.mujun.mng.vo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 
+
+@ApiModel
 public class EnterpriseModeVo implements Serializable {
 
+
+    @ApiModelProperty(value = "分页")
     private Integer pageNo;
+
+    @ApiModelProperty(value = "分页偏移量")
     private Integer pageSize;
+
+    @ApiModelProperty(value = "企业名称")
     private String enterpriseName;
+
+    @ApiModelProperty(value = "企业统一认证码")
     private String enterpriseCode;
 
+    @ApiModelProperty(value = "创建时间")
     @DateTimeFormat(pattern="yyyy-MM-dd")//页面传入数据格式化
     private String createDate;
 

@@ -32,7 +32,7 @@ public class Swagger2Config {
 
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
-                .groupName("亩均系统Swagger接口服务")
+                .groupName("工业企业综合评价系统Swagger接口服务")
                 .genericModelSubstitutes(DeferredResult.class)
                 .useDefaultResponseMessages(false)
                 .forCodeGeneration(true)
@@ -45,10 +45,10 @@ public class Swagger2Config {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("浙江亩均系统API文档")
+                .title("工业企业综合评价系统API文档")
                 .description("")
                 .version(SrConstantMDA.VERSION)
-                .license("亩均科技")
+                .license("经一科技")
                 .licenseUrl("http://www.baidu.com/")
                 .build();
     }
