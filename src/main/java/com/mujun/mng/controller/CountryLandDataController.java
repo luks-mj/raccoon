@@ -6,7 +6,7 @@ import com.mujun.mng.commons.exception.BaseException;
 import com.mujun.mng.commons.model.RestResult;
 import com.mujun.mng.commons.utils.ExcelUtil;
 import com.mujun.mng.service.impl.CountryLandServiceImpl;
-import com.mujun.mng.vo.CountryLandModeVo;
+import com.mujun.mng.vo.EnterpriseModeVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -47,7 +47,7 @@ public class CountryLandDataController {
             if (str.toUpperCase().equals("XLS") || str.toUpperCase().equals("XLSX")) {
                 InputStream is = file.getInputStream();
                 int MAX_AMOUNT = SrConstantMDA.BATCH_INST_MAX_AMOUNT;
-                List<String[]> reList = ExcelUtil.readOneCol(is, 0,false);
+                List<String[]> reList = ExcelUtil.readOneCol(is, 1,false);
                 if (reList == null || reList.size() == 0) {
                     result.setCode(SrConstantMDA.INTF_RET_CODE_EXCEPTION);
                     result.setData(resultList);
@@ -76,11 +76,11 @@ public class CountryLandDataController {
     // 国土资源数据导入
     @ApiOperation(value = "国土资源数据查询", notes = "国土数据查询")
     @RequestMapping(value = "/countryLand/queryAll", method = RequestMethod.GET)
-    public RestResult queryCountryLandData( HttpServletRequest request,CountryLandModeVo countryLandModeVo) {
+    public RestResult queryCountryLandData( HttpServletRequest request,EnterpriseModeVo enterpriseModeVo) {
         RestResult result = new RestResult();
         List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
         try {
-         Map<String,Object> results =  countryLandService.queryCountryLandData(countryLandModeVo);
+         Map<String,Object> results =  countryLandService.queryCountryLandData(enterpriseModeVo);
           result.setData(results);
           result.setMessage("查询成功");
           result.setCode(HttpStatus.OK.value());
@@ -96,12 +96,12 @@ public class CountryLandDataController {
     // 国土资源数据删除
     @ApiOperation(value = "国土资源数据删除", notes = "国土数据删除")
     @RequestMapping(value = "/countryLand/deleteByCode", method = RequestMethod.DELETE)
-    public RestResult deleteCountryLandData( HttpServletRequest request,CountryLandModeVo countryLandModeVo) {
+    public RestResult deleteCountryLandData( HttpServletRequest request,EnterpriseModeVo enterpriseModeVo) {
         RestResult result = new RestResult();
         List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
         try {
-            countryLandService.deleteCountryLandData(countryLandModeVo);
-            CountryLandModeVo model = new CountryLandModeVo();
+            countryLandService.deleteCountryLandData(enterpriseModeVo);
+            EnterpriseModeVo model = new EnterpriseModeVo();
             Map<String,Object> results =  countryLandService.queryCountryLandData(model);
             result.setData(results);
             result.setMessage("删除成功");

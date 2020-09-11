@@ -4,7 +4,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 
-public class CountryLandModeVo implements Serializable {
+public class EnterpriseModeVo implements Serializable {
+
     private Integer pageNo;
     private Integer pageSize;
     private String enterpriseName;

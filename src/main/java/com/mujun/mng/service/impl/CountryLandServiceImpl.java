@@ -9,7 +9,7 @@ import com.mujun.mng.dao.CountryLandDao;
 import com.mujun.mng.model.CountryLandModel;
 import com.mujun.mng.service.ICountryLandService;
 import com.mujun.mng.service.mapperservice.impl.QueryCountryLandServiceImpl;
-import com.mujun.mng.vo.CountryLandModeVo;
+import com.mujun.mng.vo.EnterpriseModeVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,26 +28,26 @@ public class CountryLandServiceImpl implements ICountryLandService {
 
 
     @Override
-    public Map<String, Object> queryCountryLandData(CountryLandModeVo countryLandModeVo) throws BaseException {
+    public Map<String, Object> queryCountryLandData(EnterpriseModeVo enterpriseModeVo) throws BaseException {
 
         int pageNo = 15;
         int pageSize = 0;
         QueryWrapper<CountryLandModel> wrapper = new QueryWrapper<CountryLandModel>();
         Map<String, Object> resultMap = new HashMap<> ();
-        if (!org.springframework.util.StringUtils.isEmpty(countryLandModeVo.getPageNo())){
-            pageNo = countryLandModeVo.getPageNo();
+        if (!org.springframework.util.StringUtils.isEmpty(enterpriseModeVo.getPageNo())){
+            pageNo = enterpriseModeVo.getPageNo();
         }
-        if (!org.springframework.util.StringUtils.isEmpty(countryLandModeVo.getPageSize())){
-            pageSize = countryLandModeVo.getPageSize();
+        if (!org.springframework.util.StringUtils.isEmpty(enterpriseModeVo.getPageSize())){
+            pageSize = enterpriseModeVo.getPageSize();
         }
-        if (!org.springframework.util.StringUtils.isEmpty(countryLandModeVo.getEnterpriseCode())){
-                wrapper.eq("enterprise_code",countryLandModeVo.getEnterpriseCode());
+        if (!org.springframework.util.StringUtils.isEmpty(enterpriseModeVo.getEnterpriseCode())){
+                wrapper.eq("enterprise_code",enterpriseModeVo.getEnterpriseCode());
         }
-        if (!org.springframework.util.StringUtils.isEmpty(countryLandModeVo.getEnterpriseName())){
-            wrapper.eq("enterprise_name",countryLandModeVo.getEnterpriseName());
+        if (!org.springframework.util.StringUtils.isEmpty(enterpriseModeVo.getEnterpriseName())){
+            wrapper.like("enterprise_name",enterpriseModeVo.getEnterpriseName());
         }
-        if (!org.springframework.util.StringUtils.isEmpty(countryLandModeVo.getCreateDate())){
-            wrapper.like("create_date",countryLandModeVo.getCreateDate());
+        if (!org.springframework.util.StringUtils.isEmpty(enterpriseModeVo.getCreateDate())){
+            wrapper.like("create_date",enterpriseModeVo.getCreateDate());
         }
         Page page = PageHelper.startPage(pageNo, pageSize,true);
         List<CountryLandModel> list =  countryLandDao.selectList(wrapper);
@@ -68,7 +68,7 @@ public class CountryLandServiceImpl implements ICountryLandService {
             for (String[] str : list) {
                 CountryLandModel countryLandModel = new CountryLandModel();
                 if (str.length > 5) {
-                    countryLandModel.setId(IdWorker.getId(countryLandModel));
+                    countryLandModel.setId(IdWorker.getIdStr(countryLandModel));
                     countryLandModel.setEnterPriseName(StringUtils.isEmpty(str[0]) ? " " : str[0]);
                     countryLandModel.setEnterPriseCode(StringUtils.isEmpty(str[1]) ? " " : str[1]);
                     countryLandModel.setRegisterArea(StringUtils.isEmpty(str[2]) ? 0 : Long.valueOf(str[2]));
@@ -89,18 +89,18 @@ public class CountryLandServiceImpl implements ICountryLandService {
     }
 
     @Override
-    public void deleteCountryLandData(CountryLandModeVo countryLandModeVo) throws BaseException {
+    public void deleteCountryLandData(EnterpriseModeVo enterpriseModeVo) throws BaseException {
         QueryWrapper<CountryLandModel> wrapper = new QueryWrapper<CountryLandModel>();
-         if (org.springframework.util.StringUtils.isEmpty(countryLandModeVo.getEnterpriseCode()) &&
-                 org.springframework.util.StringUtils.isEmpty(countryLandModeVo.getEnterpriseName()) )
+         if (org.springframework.util.StringUtils.isEmpty(enterpriseModeVo.getEnterpriseCode()) &&
+                 org.springframework.util.StringUtils.isEmpty(enterpriseModeVo.getEnterpriseName()) )
          {
              throw new BaseException("请至少选择一项企业名称，或者企业统一认证码！");
          }
-        if (!org.springframework.util.StringUtils.isEmpty(countryLandModeVo.getEnterpriseCode())){
-            wrapper.eq("enterprise_code",countryLandModeVo.getEnterpriseCode());
+        if (!org.springframework.util.StringUtils.isEmpty(enterpriseModeVo.getEnterpriseCode())){
+            wrapper.eq("enterprise_code",enterpriseModeVo.getEnterpriseCode());
         }
-        if (!org.springframework.util.StringUtils.isEmpty(countryLandModeVo.getEnterpriseName())){
-            wrapper.eq("enterprise_name",countryLandModeVo.getEnterpriseName());
+        if (!org.springframework.util.StringUtils.isEmpty(enterpriseModeVo.getEnterpriseName())){
+            wrapper.eq("enterprise_name",enterpriseModeVo.getEnterpriseName());
         }
         queryCountryLandService.remove(wrapper);
     }

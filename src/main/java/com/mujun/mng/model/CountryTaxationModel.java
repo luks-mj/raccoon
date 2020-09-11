@@ -1,5 +1,6 @@
 package com.mujun.mng.model;
 
+
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -10,11 +11,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 国土数据模型
+ * 国税数据模型
  */
-@TableName("db_country_land")
-public class CountryLandModel implements Serializable {
-
+@TableName("db_country_taxation")
+public class CountryTaxationModel implements Serializable {
 
     @TableId(value = "id")
     private String id;
@@ -32,29 +32,22 @@ public class CountryLandModel implements Serializable {
     private String enterPriseCode;
 
     /**
-     * 登记用地面积
+     * 国税缴纳金额
      */
-    @TableField(value = "register_area")
-    private Long registerArea;
+    @TableField(value = "taxation_data")
+    private Long taxationData;
 
     /**
-     * 承租用地面积
+     * 国税费用明细
      */
-    @TableField(value = "lessee_area")
-    private Long lesseeArea;
-
-    /**
-     * 出租用地面积
-     */
-    @TableField(value = "lease_area")
-    private Long leaseArea;
+    @TableField(value = "taxation_detail")
+    private String taxationDetail;
 
     /**
      * 导入用户
      */
     @TableField(value = "user_id")
     private Long userId;
-
 
 
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")//页面写入数据库时格式化
@@ -71,6 +64,7 @@ public class CountryLandModel implements Serializable {
      * 备注信息
      */
     private String remark;
+
 
     public String getId() {
         return id;
@@ -96,28 +90,20 @@ public class CountryLandModel implements Serializable {
         this.enterPriseCode = enterPriseCode;
     }
 
-    public Long getRegisterArea() {
-        return registerArea;
+    public Long getTaxationData() {
+        return taxationData;
     }
 
-    public void setRegisterArea(Long registerArea) {
-        this.registerArea = registerArea;
+    public void setTaxationData(Long taxationData) {
+        this.taxationData = taxationData;
     }
 
-    public Long getLesseeArea() {
-        return lesseeArea;
+    public String getTaxationDetail() {
+        return taxationDetail;
     }
 
-    public void setLesseeArea(Long lesseeArea) {
-        this.lesseeArea = lesseeArea;
-    }
-
-    public Long getLeaseArea() {
-        return leaseArea;
-    }
-
-    public void setLeaseArea(Long leaseArea) {
-        this.leaseArea = leaseArea;
+    public void setTaxationDetail(String taxationDetail) {
+        this.taxationDetail = taxationDetail;
     }
 
     public Long getUserId() {
@@ -150,21 +136,5 @@ public class CountryLandModel implements Serializable {
 
     public void setRemark(String remark) {
         this.remark = remark;
-    }
-
-    @Override
-    public String toString() {
-        return "ContryLandModel{" +
-                "id=" + id +
-                ", enterPriseName='" + enterPriseName + '\'' +
-                ", enterPriseCode='" + enterPriseCode + '\'' +
-                ", registerArea=" + registerArea +
-                ", lesseeArea=" + lesseeArea +
-                ", leaseArea=" + leaseArea +
-                ", userId=" + userId +
-                ", createDate=" + createDate +
-                ", updateDate=" + updateDate +
-                ", remark='" + remark + '\'' +
-                '}';
     }
 }
