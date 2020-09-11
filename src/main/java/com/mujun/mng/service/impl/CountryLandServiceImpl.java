@@ -77,6 +77,12 @@ public class CountryLandServiceImpl implements ICountryLandService {
                     countryLandModel.setUserId(null);
                     countryLandModel.setCreateDate(new Date());
                     countryLandModel.setUpdateDate(new Date());
+
+                    // 只导入不存在的企业，根据统一认证的企业编号判断库中是否已经存在，若已经存在 过滤。
+                    if (isExists(countryLandModel)){
+                        continue;
+                    }
+
                 }
                 entityList.add(countryLandModel);
             }
@@ -87,6 +93,23 @@ public class CountryLandServiceImpl implements ICountryLandService {
         }
         queryCountryLandService.saveBatch(entityList);
     }
+
+
+    /**
+     * 判断当前库中是否存在统一企业认证
+     * @param countryLandModel
+     * @return
+     */
+    public boolean isExists(CountryLandModel countryLandModel){
+        QueryWrapper<CountryLandModel> wrapper = new QueryWrapper<CountryLandModel>();
+        wrapper.eq("enterprise_code",countryLandModel.getEnterPriseCode());
+        CountryLandModel res =  queryCountryLandService.getOne(wrapper);
+        if (res!=null){
+            return true;
+        }
+        return false;
+    }
+
 
     @Override
     public void deleteCountryLandData(EnterpriseModeVo enterpriseModeVo) throws BaseException {
