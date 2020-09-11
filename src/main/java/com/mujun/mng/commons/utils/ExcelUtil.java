@@ -201,20 +201,22 @@ public class ExcelUtil {
             Row rowNow = (Row) rowIterator.next();
             int i = 0;
             String [] str = new String[10];
-            for (Cell cellNow : rowNow) {
-                if (cellNow != null) {
+            for (int k = 0; k<rowNow.getLastCellNum() ;k++) {
+                if (rowNow.getCell(k) != null) {
                     // 如果是数字
-                    if (cellNow.getCellType() == Cell.CELL_TYPE_NUMERIC) {
-                        double d = cellNow.getNumericCellValue();
+                    if (rowNow.getCell(k).getCellType() == Cell.CELL_TYPE_NUMERIC) {
+                        double d = rowNow.getCell(k).getNumericCellValue();
                         BigDecimal bd = new BigDecimal(d);
                         msgNow = bd.toString();
                     } else {
-                        msgNow = cellNow.getStringCellValue();
+                        msgNow = rowNow.getCell(k).getStringCellValue();
                     }
                     msgNow = msgNow.trim();
                     str[i] = msgNow;
-                    i++;
+                }else {
+                    str[i] = null;
                 }
+                i++;
             }
             reList.add(str);
         }
