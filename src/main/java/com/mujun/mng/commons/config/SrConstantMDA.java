@@ -16,6 +16,8 @@ public class SrConstantMDA {
     public static final int BATCH_PN_ESS_EVERY_AMOUNT = 10000;//线程每次处理最大数
 
 
+     public static final String ACCEPT_URI =  new String();
+
     //接口返回编码：成功
     public static Integer INTF_RET_CODE_SUCC = 0;
     //接口返回编码：失败
