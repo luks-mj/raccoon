@@ -6,12 +6,16 @@ import com.mujun.mng.commons.config.SrConstantMDA;
 import com.mujun.mng.controller.CountryLandDataController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@WebFilter(filterName = "RestfulRequestFilter",urlPatterns = "/*")
+@Component
 public class RestfulRequestFilter implements Filter {
 
     private static Logger logger = LoggerFactory.getLogger(CountryLandDataController.class);
@@ -19,7 +23,7 @@ public class RestfulRequestFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-
+            logger.info("init filter...");
     }
 
 
@@ -46,10 +50,6 @@ public class RestfulRequestFilter implements Filter {
         String contnetType = request.getContentType();
 
         logger.debug("url:" + url);
-        logger.debug("urlParams:" + urlParams);
-        logger.debug("contnetType:" + contnetType);
-
-        // 登录，验证码获取  不要求身份验证
 //        if(ifNotNeedCheck(url)){
 //            chain.doFilter(req, res);
 //            return;
@@ -67,6 +67,8 @@ public class RestfulRequestFilter implements Filter {
 //            response.getOutputStream().write(result.getBytes("UTF-8"));
 //            response.setContentType("text/json; charset=UTF-8");
 //        }
+            chain.doFilter(req, res);
+            return;
     }
 
     private boolean ifNotNeedCheck(String url){
