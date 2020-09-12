@@ -2,9 +2,11 @@ package com.mujun.mng.controller;
 
 
 import com.mujun.mng.commons.config.SrConstantMDA;
+import com.mujun.mng.commons.exception.BaseException;
 import com.mujun.mng.commons.model.RestResult;
 import com.mujun.mng.commons.utils.ExcelUtil;
 import com.mujun.mng.service.impl.CountryTaxationServiceImpl;
+import com.mujun.mng.vo.EnterpriseModeVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -66,10 +68,50 @@ public class CountryTaxationDataController {
             logger.debug("国税数据导入异常：{}", e.getMessage());
             result.setCode(SrConstantMDA.INTF_RET_CODE_EXCEPTION);
             result.setData(resultList);
+            result.setMessage("国税数据导入异常:"+e.getMessage());
+        }
+        return result;
+    }
+
+    @ApiOperation(value = "国税资源数据查询", notes = "国税数据查询")
+    @RequestMapping(value = "/countryTaxation/queryAll", method = RequestMethod.GET)
+    public RestResult queryCountryLandData( HttpServletRequest request,EnterpriseModeVo enterpriseModeVo) {
+        RestResult result = new RestResult();
+        List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
+        try {
+            Map<String,Object> results =  countryTaxationService.queryCountryTaxation(enterpriseModeVo);
+            result.setData(results);
+            result.setMessage("查询成功");
+            result.setCode(HttpStatus.OK.value());
+        } catch (BaseException e) {
+            logger.debug("国税数据查询异常：{}", e.getMessage());
+            result.setCode(SrConstantMDA.INTF_RET_CODE_EXCEPTION);
+            result.setData(resultList);
             result.setMessage(e.getMessage());
         }
         return result;
     }
 
+    // 国税资源数据删除
+    @ApiOperation(value = "国税资源数据删除", notes = "国税数据删除")
+    @RequestMapping(value = "/countryTaxation/deleteByCode", method = RequestMethod.DELETE)
+    public RestResult deleteCountryLandData( HttpServletRequest request,EnterpriseModeVo enterpriseModeVo) {
+        RestResult result = new RestResult();
+        List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
+        try {
+            countryTaxationService.deleteCountryTaxationData(enterpriseModeVo);
+            EnterpriseModeVo model = new EnterpriseModeVo();
+            Map<String,Object> results =  countryTaxationService.queryCountryTaxation(model);
+            result.setData(results);
+            result.setMessage("删除成功");
+            result.setCode(HttpStatus.OK.value());
+        } catch (BaseException e) {
+            logger.debug("国税数据删除异常：{}", e.getMessage());
+            result.setCode(SrConstantMDA.INTF_RET_CODE_EXCEPTION);
+            result.setData(resultList);
+            result.setMessage(e.getMessage());
+        }
+        return result;
+    }
 
 }
