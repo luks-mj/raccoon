@@ -67,7 +67,7 @@ public class CountryLandServiceImpl implements ICountryLandService {
         List<CountryLandModel> entityList = new ArrayList<>(list.size());
             for (String[] str : list) {
                 CountryLandModel countryLandModel = new CountryLandModel();
-                if (str.length > 5) {
+                if (str.length == 5) {
                     countryLandModel.setId(IdWorker.getIdStr(countryLandModel));
                     countryLandModel.setEnterPriseName(StringUtils.isEmpty(str[0]) ? " " : str[0]);
                     countryLandModel.setEnterPriseCode(StringUtils.isEmpty(str[1]) ? " " : str[1]);

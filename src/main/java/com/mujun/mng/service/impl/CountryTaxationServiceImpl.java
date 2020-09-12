@@ -67,7 +67,7 @@ public class CountryTaxationServiceImpl implements ICountryTaxationService {
         List<CountryTaxationModel> entityList = new ArrayList<>(list.size());
         for (String[] str : list) {
             CountryTaxationModel countryTaxationModel = new CountryTaxationModel();
-            if (str.length > 4) {
+            if (str.length == 4) {
                 countryTaxationModel.setId(IdWorker.getIdStr(countryTaxationModel));
                 countryTaxationModel.setEnterPriseName(StringUtils.isEmpty(str[0]) ? " " : str[0]);
                 countryTaxationModel.setEnterPriseCode(StringUtils.isEmpty(str[1]) ? " " : str[1]);

@@ -200,7 +200,7 @@ public class ExcelUtil {
             }
             Row rowNow = (Row) rowIterator.next();
             int i = 0;
-            String [] str = new String[10];
+            String [] str = new String[rowNow.getLastCellNum()];
             for (int k = 0; k<rowNow.getLastCellNum() ;k++) {
                 if (rowNow.getCell(k) != null) {
                     // 如果是数字
