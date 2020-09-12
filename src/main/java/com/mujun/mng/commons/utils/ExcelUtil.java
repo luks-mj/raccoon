@@ -192,15 +192,17 @@ public class ExcelUtil {
     public static List<String[]> readOneRowCols(Sheet sheet,boolean isFirstRead) {
         String msgNow;
         List<String[]>  reList = new ArrayList<>();
+        int countRow = 0;
         for (Iterator rowIterator = sheet.rowIterator(); rowIterator.hasNext(); ) {
             if (!isFirstRead) {
-                rowIterator.next();// 从第二行开始读
+            Row firstNow =  (Row) rowIterator.next();// 从第二行开始读
+                countRow= firstNow.getLastCellNum();
                 isFirstRead = true;
                 continue;
             }
             Row rowNow = (Row) rowIterator.next();
             int i = 0;
-            String [] str = new String[rowNow.getLastCellNum()];
+            String [] str = new String[countRow];
             for (int k = 0; k<rowNow.getLastCellNum() ;k++) {
                 if (rowNow.getCell(k) != null) {
                     // 如果是数字

@@ -1,5 +1,6 @@
 package com.mujun.mng.model;
 
+
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -10,11 +11,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 国土数据模型
+ * 企业统计数据导入
  */
-@TableName("db_country_land")
-public class CountryLandModel implements Serializable {
-
+@TableName("db_count_enterprise")
+public class EnterpriseCountModel implements Serializable {
 
     @TableId(value = "id")
     private String id;
@@ -32,22 +32,36 @@ public class CountryLandModel implements Serializable {
     private String enterPriseCode;
 
     /**
-     * 登记用地面积
+     * 工业产值（万元）
      */
-    @TableField(value = "register_area")
-    private Double registerArea;
+    @TableField("industry_pro")
+    private Double industryPro;
 
     /**
-     * 承租用地面积
+     * 工业增加值（万元）
      */
-    @TableField(value = "lessee_area")
-    private Double lesseeArea;
+    @TableField(value = "industry_put")
+    private  Double industryPut;
 
     /**
-     * 出租用地面积
+     * R&D经费占主营业收入比重
      */
-    @TableField(value = "lease_area")
-    private Double leaseArea;
+    @TableField(value = "industry_ratio")
+    private  Double industryRatio;
+
+
+    /**
+     * 年平均职工数
+     */
+    @TableField(value = "industry_avg_person")
+    private Integer industryAvgPerson;
+
+
+    /**
+     * 综合能耗
+     */
+    @TableField(value = "energy_consumption")
+    private  Double energyConsumption;
 
     /**
      * 导入用户
@@ -97,28 +111,44 @@ public class CountryLandModel implements Serializable {
         this.enterPriseCode = enterPriseCode;
     }
 
-    public Double getRegisterArea() {
-        return registerArea;
+    public Double getIndustryPro() {
+        return industryPro;
     }
 
-    public void setRegisterArea(Double registerArea) {
-        this.registerArea = registerArea;
+    public void setIndustryPro(Double industryPro) {
+        this.industryPro = industryPro;
     }
 
-    public Double getLesseeArea() {
-        return lesseeArea;
+    public Double getIndustryPut() {
+        return industryPut;
     }
 
-    public void setLesseeArea(Double lesseeArea) {
-        this.lesseeArea = lesseeArea;
+    public void setIndustryPut(Double industryPut) {
+        this.industryPut = industryPut;
     }
 
-    public Double getLeaseArea() {
-        return leaseArea;
+    public Double getIndustryRatio() {
+        return industryRatio;
     }
 
-    public void setLeaseArea(Double leaseArea) {
-        this.leaseArea = leaseArea;
+    public void setIndustryRatio(Double industryRatio) {
+        this.industryRatio = industryRatio;
+    }
+
+    public Integer getIndustryAvgPerson() {
+        return industryAvgPerson;
+    }
+
+    public void setIndustryAvgPerson(Integer industryAvgPerson) {
+        this.industryAvgPerson = industryAvgPerson;
+    }
+
+    public Double getEnergyConsumption() {
+        return energyConsumption;
+    }
+
+    public void setEnergyConsumption(Double energyConsumption) {
+        this.energyConsumption = energyConsumption;
     }
 
     public Long getUserId() {
@@ -151,21 +181,5 @@ public class CountryLandModel implements Serializable {
 
     public void setRemark(String remark) {
         this.remark = remark;
-    }
-
-    @Override
-    public String toString() {
-        return "ContryLandModel{" +
-                "id=" + id +
-                ", enterPriseName='" + enterPriseName + '\'' +
-                ", enterPriseCode='" + enterPriseCode + '\'' +
-                ", registerArea=" + registerArea +
-                ", lesseeArea=" + lesseeArea +
-                ", leaseArea=" + leaseArea +
-                ", userId=" + userId +
-                ", createDate=" + createDate +
-                ", updateDate=" + updateDate +
-                ", remark='" + remark + '\'' +
-                '}';
     }
 }
