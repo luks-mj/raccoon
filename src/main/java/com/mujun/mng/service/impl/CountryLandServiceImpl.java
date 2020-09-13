@@ -117,7 +117,7 @@ public class CountryLandServiceImpl implements ICountryLandService {
         QueryWrapper<CountryLandModel> wrapper = new QueryWrapper<CountryLandModel>();
 
         if (enterpriseModeVo.getIds().size()>0){
-            wrapper.in("enterprise_code",enterpriseModeVo.getIds());
+            wrapper.in("id",enterpriseModeVo.getIds());
         }
 
         queryCountryLandService.removeByIds(enterpriseModeVo.getIds());

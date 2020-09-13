@@ -65,6 +65,9 @@ public class EnterpriseCountServiceImpl implements IEnterpriseCountService {
     @Override
     public void deleteEnterpriseCountData(EnterpriseModeVo enterpriseModeVo) throws BaseException {
 
+        if (enterpriseModeVo.getIds().size()>0){
+            queryEnterpriseCountService.removeByIds(enterpriseModeVo.getIds());
+        }
     }
 
     /**

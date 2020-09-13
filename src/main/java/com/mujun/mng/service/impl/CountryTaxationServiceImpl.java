@@ -115,17 +115,9 @@ public class CountryTaxationServiceImpl implements ICountryTaxationService {
     @Override
     public void deleteCountryTaxationData(EnterpriseModeVo enterpriseModeVo) throws BaseException {
         QueryWrapper<CountryTaxationModel> wrapper = new QueryWrapper<CountryTaxationModel>();
-        if (org.springframework.util.StringUtils.isEmpty(enterpriseModeVo.getEnterpriseCode()) &&
-                org.springframework.util.StringUtils.isEmpty(enterpriseModeVo.getEnterpriseName()) )
-        {
-            throw new BaseException("请至少选择一项企业名称，或者企业统一认证码！");
+        if (enterpriseModeVo.getIds().size()>0){
+            wrapper.in("enterprise_code",enterpriseModeVo.getIds());
         }
-        if (!org.springframework.util.StringUtils.isEmpty(enterpriseModeVo.getEnterpriseCode())){
-            wrapper.eq("enterprise_code",enterpriseModeVo.getEnterpriseCode());
-        }
-        if (!org.springframework.util.StringUtils.isEmpty(enterpriseModeVo.getEnterpriseName())){
-            wrapper.eq("enterprise_name",enterpriseModeVo.getEnterpriseName());
-        }
-        queryCountryTaxationService.remove(wrapper);
+        queryCountryTaxationService.removeByIds(enterpriseModeVo.getIds());
     }
 }

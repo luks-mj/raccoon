@@ -35,7 +35,7 @@ public class RestfulRequestFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) res;
 
         response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS,PUT");
+        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS,PUT,DELETE");
         response.setHeader("Access-Control-Max-Age", "0");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type,Content-Length, Authorization, Accept,X-Requested-With");
         response.setHeader("Allow","GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS, PATCH");
