@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
+import java.util.List;
 
 
 @ApiModel
@@ -26,6 +27,17 @@ public class EnterpriseModeVo implements Serializable {
     @ApiModelProperty(value = "创建时间")
     @DateTimeFormat(pattern="yyyy-MM-dd")//页面传入数据格式化
     private String createDate;
+
+    @ApiModelProperty(value = "主键ID")
+    private List<String> ids;
+
+    public List<String> getIds() {
+        return ids;
+    }
+
+    public void setIds(List<String> ids) {
+        this.ids = ids;
+    }
 
     public Integer getPageNo() {
         return pageNo;
