@@ -49,25 +49,21 @@ public class CountryLandDataController {
                 int MAX_AMOUNT = SrConstantMDA.BATCH_INST_MAX_AMOUNT;
                 List<String[]> reList = ExcelUtil.readOneCol(is, 1,false);
                 if (reList == null || reList.size() == 0) {
-                    result.setCode(SrConstantMDA.INTF_RET_CODE_EXCEPTION);
-                    result.setData(resultList);
-                    result.setMessage("文件导入为空或者文件导入失败！");
+                    result.setMeta(HttpStatus.BAD_REQUEST.value(),"导入失败");
+                    result.setInfo(resultList);
                     return result;
                 } else if (reList.size() > MAX_AMOUNT) {
-                    result.setCode(SrConstantMDA.INTF_RET_CODE_EXCEPTION);
-                    result.setData(resultList);
-                    result.setMessage("文件导入一次最多支持" + MAX_AMOUNT + "条记录!");
+                    result.setMeta(HttpStatus.BAD_REQUEST.value(),"文件导入一次最多支持" + MAX_AMOUNT + "条记录!");
+                    result.setInfo(resultList);
                     return result;
                 }
                 countryLandService.batchImport(reList);
-                result.setCode(HttpStatus.OK.value());
-                result.setMessage("导入完成！");
+                result.setMeta(HttpStatus.OK.value(),"");
             }
         } catch (Exception e) {
             logger.debug("国土数据导入异常：{}", e.getMessage());
-            result.setCode(SrConstantMDA.INTF_RET_CODE_EXCEPTION);
-            result.setData(resultList);
-            result.setMessage(e.getMessage());
+            result.setMeta(HttpStatus.BAD_REQUEST.value(),"文件导入失败:"+e.getMessage());
+            result.setInfo(resultList);
         }
         return result;
     }
@@ -81,14 +77,12 @@ public class CountryLandDataController {
         List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
         try {
          Map<String,Object> results =  countryLandService.queryCountryLandData(enterpriseModeVo);
-          result.setData(results);
-          result.setMessage("查询成功");
-          result.setCode(HttpStatus.OK.value());
+          result.setInfo(results);
+          result.setMeta(HttpStatus.OK.value(),"");
         } catch (BaseException e) {
             logger.debug("国土数据查询异常：{}", e.getMessage());
-            result.setCode(SrConstantMDA.INTF_RET_CODE_EXCEPTION);
-            result.setData(resultList);
-            result.setMessage(e.getMessage());
+            result.setMeta(SrConstantMDA.INTF_RET_CODE_EXCEPTION,e.getMessage());
+            result.setInfo(resultList);
         }
         return result;
     }
@@ -103,14 +97,12 @@ public class CountryLandDataController {
             countryLandService.deleteCountryLandData(enterpriseModeVo);
             EnterpriseModeVo model = new EnterpriseModeVo();
             Map<String,Object> results =  countryLandService.queryCountryLandData(model);
-            result.setData(results);
-            result.setMessage("删除成功");
-            result.setCode(HttpStatus.OK.value());
+            result.setInfo(results);
+            result.setMeta(HttpStatus.OK.value(),"删除成功");
         } catch (BaseException e) {
             logger.debug("国土数据删除异常：{}", e.getMessage());
-            result.setCode(SrConstantMDA.INTF_RET_CODE_EXCEPTION);
-            result.setData(resultList);
-            result.setMessage(e.getMessage());
+            result.setInfo(resultList);
+            result.setMeta(HttpStatus.BAD_REQUEST.value(),e.getMessage());
         }
         return result;
     }

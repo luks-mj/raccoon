@@ -52,13 +52,14 @@ public class CountryLandServiceImpl implements ICountryLandService {
         Page page = PageHelper.startPage(pageNo, pageSize,true);
         List<CountryLandModel> list =  countryLandDao.selectList(wrapper);
         Map<String,Object> pager = new HashMap<>();
-        pager.put("total",page.getTotal());
-        pager.put("startRowNum",page.getStartRow());
-        pager.put("endRowNum",page.getEndRow());
-        pager.put("pageSize",page.getPageSize());
-        pager.put("totalPage",page.getPages());
-        resultMap.put("pager", pager);
-        resultMap.put("resultList", list);
+//        pager.put("total",page.getTotal());
+//        pager.put("startRowNum",page.getStartRow());
+//        pager.put("endRowNum",page.getEndRow());
+//        pager.put("pageSize",page.getPageSize());
+//        pager.put("totalPage",page.getPages());
+//        resultMap.put("pager", pager);
+        resultMap.put("data", list);
+        resultMap.put("total",page.getTotal());
         return resultMap;
     }
 

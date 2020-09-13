@@ -50,25 +50,23 @@ public class CountryTaxationDataController {
                 int MAX_AMOUNT = SrConstantMDA.BATCH_INST_MAX_AMOUNT;
                 List<String[]> reList = ExcelUtil.readOneCol(is, 1,false);
                 if (reList == null || reList.size() == 0) {
-                    result.setCode(SrConstantMDA.INTF_RET_CODE_EXCEPTION);
-                    result.setData(resultList);
-                    result.setMessage("文件导入为空或者文件导入失败！");
+                    result.setInfo(resultList);
+                    result.setMeta(HttpStatus.INTERNAL_SERVER_ERROR.value(),"文件导入为空或者文件导入失败！");
                     return result;
                 } else if (reList.size() > MAX_AMOUNT) {
-                    result.setCode(SrConstantMDA.INTF_RET_CODE_EXCEPTION);
-                    result.setData(resultList);
-                    result.setMessage("文件导入一次最多支持" + MAX_AMOUNT + "条记录!");
+                    result.setInfo(resultList);
+                    result.setMeta(HttpStatus.INTERNAL_SERVER_ERROR.value(),"文件导入一次最多支持" + MAX_AMOUNT + "条记录!");
                     return result;
                 }
                 countryTaxationService.batchImport(reList);
-                result.setCode(HttpStatus.OK.value());
-                result.setMessage("导入完成！");
+                result.setInfo(resultList);
+                result.setMeta(HttpStatus.OK.value(),"导入完成");
+
             }
         } catch (Exception e) {
             logger.debug("国税数据导入异常：{}", e.getMessage());
-            result.setCode(SrConstantMDA.INTF_RET_CODE_EXCEPTION);
-            result.setData(resultList);
-            result.setMessage("国税数据导入异常:"+e.getMessage());
+            result.setInfo(resultList);
+            result.setMeta(HttpStatus.BAD_REQUEST.value(),"国税数据导入异常:"+e.getMessage());
         }
         return result;
     }
@@ -80,14 +78,12 @@ public class CountryTaxationDataController {
         List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
         try {
             Map<String,Object> results =  countryTaxationService.queryCountryTaxation(enterpriseModeVo);
-            result.setData(results);
-            result.setMessage("查询成功");
-            result.setCode(HttpStatus.OK.value());
+            result.setInfo(results);
+            result.setMeta(HttpStatus.OK.value(),"查询成功！");
         } catch (BaseException e) {
             logger.debug("国税数据查询异常：{}", e.getMessage());
-            result.setCode(SrConstantMDA.INTF_RET_CODE_EXCEPTION);
-            result.setData(resultList);
-            result.setMessage(e.getMessage());
+            result.setInfo(resultList);
+            result.setMeta(HttpStatus.BAD_REQUEST.value(),e.getMessage());
         }
         return result;
     }
@@ -102,14 +98,11 @@ public class CountryTaxationDataController {
             countryTaxationService.deleteCountryTaxationData(enterpriseModeVo);
             EnterpriseModeVo model = new EnterpriseModeVo();
             Map<String,Object> results =  countryTaxationService.queryCountryTaxation(model);
-            result.setData(results);
-            result.setMessage("删除成功");
-            result.setCode(HttpStatus.OK.value());
+            result.setInfo(results);
+            result.setMeta(HttpStatus.OK.value(),"删除成功");
         } catch (BaseException e) {
-            logger.debug("国税数据删除异常：{}", e.getMessage());
-            result.setCode(SrConstantMDA.INTF_RET_CODE_EXCEPTION);
-            result.setData(resultList);
-            result.setMessage(e.getMessage());
+            result.setInfo(resultList);
+            result.setMeta(HttpStatus.BAD_REQUEST.value(),e.getMessage());
         }
         return result;
     }

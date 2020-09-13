@@ -34,8 +34,8 @@ public class UserInfoController {
         Long id1 = IdWorker.getId(new User());
         Long id2 = IdWorker.getId();
         logger.info("Id1生成值{}，id2生成主键值->:{}", id1, id2);
-        queryResult.setData(id2);
-        queryResult.setCode(200);
+        queryResult.setInfo(id2);
+        queryResult.setMeta(HttpStatus.OK.value(),"查询成功");
         return  queryResult;
     }
 
@@ -48,8 +48,8 @@ public class UserInfoController {
         user.setAge(18);
         user.setName("凯撒");
         Integer result = userService.insert(user);
-        queryResult.setData(result);
-        queryResult.setCode(HttpStatus.ACCEPTED.value());
+        queryResult.setInfo(result);
+        queryResult.setMeta(HttpStatus.ACCEPTED.value(),"");
 
         return  queryResult;
     }

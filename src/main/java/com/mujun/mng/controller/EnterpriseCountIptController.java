@@ -47,25 +47,21 @@ public class EnterpriseCountIptController {
                 int MAX_AMOUNT = SrConstantMDA.BATCH_INST_MAX_AMOUNT;
                 List<String[]> reList = ExcelUtil.readOneCol(is, 1,false);
                 if (reList == null || reList.size() == 0) {
-                    result.setCode(SrConstantMDA.INTF_RET_CODE_EXCEPTION);
-                    result.setData(resultList);
-                    result.setMessage("文件导入为空或者文件导入失败！");
+                    result.setInfo(resultList);
+                    result.setMeta(HttpStatus.BAD_REQUEST.value(),"文件导入为空或者文件导入失败！");
                     return result;
                 } else if (reList.size() > MAX_AMOUNT) {
-                    result.setCode(SrConstantMDA.INTF_RET_CODE_EXCEPTION);
-                    result.setData(resultList);
-                    result.setMessage("文件导入一次最多支持" + MAX_AMOUNT + "条记录!");
+                    result.setInfo(resultList);
+                    result.setMeta(HttpStatus.BAD_REQUEST.value(),"文件导入一次最多支持" + MAX_AMOUNT + "条记录!");
                     return result;
                 }
                 enterpriseCountService.batchImport(reList);
-                result.setCode(HttpStatus.OK.value());
-                result.setMessage("导入完成！");
+                result.setMeta(HttpStatus.OK.value(),"导入完成！");
             }
         } catch (Exception e) {
             logger.debug("企业统计数据导入异常：{}", e.getMessage());
-            result.setCode(SrConstantMDA.INTF_RET_CODE_EXCEPTION);
-            result.setData(resultList);
-            result.setMessage("企业统计数据导入异常:"+e.getMessage());
+            result.setInfo(resultList);
+            result.setMeta(HttpStatus.BAD_REQUEST.value(),"企业统计数据导入异常:"+e.getMessage());
         }
         return result;
     }
