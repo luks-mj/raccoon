@@ -10,7 +10,7 @@ public interface ICountryLandService {
 
       Map<String, Object> queryCountryLandData (EnterpriseModeVo countryLandModeVo) throws BaseException;
 
-      void batchImport(List<String[]>  list) throws BaseException;
+      void batchImport(List<String[]>  list ,EnterpriseModeVo enterpriseModeVo) throws BaseException;
 
       void deleteCountryLandData (EnterpriseModeVo countryLandModeVo) throws BaseException;
 

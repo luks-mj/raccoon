@@ -6,7 +6,6 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.mujun.mng.commons.exception.BaseException;
 import com.mujun.mng.dao.CountryTaxationDao;
-import com.mujun.mng.model.CountryLandModel;
 import com.mujun.mng.model.CountryTaxationModel;
 import com.mujun.mng.service.ICountryTaxationService;
 import com.mujun.mng.service.mapperservice.impl.QueryCountryTaxationServiceImpl;
@@ -34,6 +33,19 @@ public class CountryTaxationServiceImpl implements ICountryTaxationService {
         int pageSize = 0;
         QueryWrapper<CountryTaxationModel> wrapper = new QueryWrapper<CountryTaxationModel>();
         Map<String, Object> resultMap = new HashMap<>();
+
+        if (enterpriseModeVo.getYear()==null){
+            throw new BaseException("请选择年份");
+        }
+
+        if (enterpriseModeVo.getMonth()==null){
+            throw new BaseException("请选择月份");
+        }
+
+        wrapper.eq("year",enterpriseModeVo.getYear());
+        wrapper.eq("month",enterpriseModeVo.getMonth());
+
+
         if (!org.springframework.util.StringUtils.isEmpty(enterpriseModeVo.getPageNo())){
             pageNo = enterpriseModeVo.getPageNo();
         }
@@ -64,11 +76,13 @@ public class CountryTaxationServiceImpl implements ICountryTaxationService {
     }
 
     @Override
-    public void batchImport(List<String[]> list) throws BaseException {
+    public void batchImport(List<String[]> list,EnterpriseModeVo enterpriseModeVo) throws BaseException {
         List<CountryTaxationModel> entityList = new ArrayList<>(list.size());
         for (String[] str : list) {
             CountryTaxationModel countryTaxationModel = new CountryTaxationModel();
             if (str.length == 4) {
+                countryTaxationModel.setYear(enterpriseModeVo.getYear());
+                countryTaxationModel.setMonth(enterpriseModeVo.getMonth());
                 countryTaxationModel.setId(IdWorker.getIdStr(countryTaxationModel));
                 countryTaxationModel.setEnterPriseName(StringUtils.isEmpty(str[0]) ? " " : str[0]);
                 countryTaxationModel.setEnterPriseCode(StringUtils.isEmpty(str[1]) ? " " : str[1]);

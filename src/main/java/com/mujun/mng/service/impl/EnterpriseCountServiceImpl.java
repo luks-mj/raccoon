@@ -29,12 +29,14 @@ public class EnterpriseCountServiceImpl implements IEnterpriseCountService {
     }
 
     @Override
-    public void batchImport(List<String[]> list) throws BaseException {
+    public void batchImport(List<String[]> list,EnterpriseModeVo enterpriseModeVo) throws BaseException {
         List<EnterpriseCountModel> entityList = new ArrayList<>(list.size());
         for (String[] str : list) {
             EnterpriseCountModel enterpriseCountModel = new EnterpriseCountModel();
             if (str.length == 7) {
                 enterpriseCountModel.setId(IdWorker.getIdStr(enterpriseCountModel));
+                enterpriseCountModel.setYear(enterpriseModeVo.getYear());
+                enterpriseCountModel.setMonth(enterpriseCountModel.getMonth());
                 enterpriseCountModel.setEnterPriseName(StringUtils.isEmpty(str[0]) ? " " : str[0]);
                 enterpriseCountModel.setEnterPriseCode(StringUtils.isEmpty(str[1]) ? " " : str[1]);
                 enterpriseCountModel.setIndustryPro(StringUtils.isEmpty(str[2]) ? 0 : Double.valueOf(str[2]));

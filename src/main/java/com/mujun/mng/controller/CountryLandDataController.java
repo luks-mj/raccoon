@@ -35,7 +35,7 @@ public class CountryLandDataController {
     // 国土资源数据导入
     @ApiOperation(value = "国土资源数据批量导入", notes = "国土数据导入")
     @RequestMapping(value = "/countryLand/batchImport", method = RequestMethod.POST)
-    public RestResult batchQueryInstType(@RequestParam("file") MultipartFile file, Model model, HttpServletRequest request) {
+    public RestResult batchQueryInstType(@RequestParam("file") MultipartFile file, Model model, @RequestBody EnterpriseModeVo enterpriseModeVo) {
         RestResult result = new RestResult();
         List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
         try {

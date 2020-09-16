@@ -10,7 +10,7 @@ public interface IEnterpriseCountService {
 
     Map<String, Object> queryEnterprise (EnterpriseModeVo enterpriseModeVo) throws BaseException;
 
-    void batchImport(List<String[]> list) throws BaseException;
+    void batchImport(List<String[]> list,EnterpriseModeVo enterpriseModeVo) throws BaseException;
 
     void deleteEnterpriseCountData (EnterpriseModeVo enterpriseModeVo) throws BaseException;
 

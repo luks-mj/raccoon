@@ -34,6 +34,17 @@ public class CountryLandServiceImpl implements ICountryLandService {
         int pageSize = 0;
         QueryWrapper<CountryLandModel> wrapper = new QueryWrapper<CountryLandModel>();
         Map<String, Object> resultMap = new HashMap<> ();
+        if (enterpriseModeVo.getYear()==null){
+            throw new BaseException("请选择年份");
+        }
+
+        if (enterpriseModeVo.getMonth()==null){
+            throw new BaseException("请选择月份");
+        }
+
+        wrapper.eq("year",enterpriseModeVo.getYear());
+        wrapper.eq("month",enterpriseModeVo.getMonth());
+
         if (!org.springframework.util.StringUtils.isEmpty(enterpriseModeVo.getPageNo())){
             pageNo = enterpriseModeVo.getPageNo();
         }
@@ -64,12 +75,14 @@ public class CountryLandServiceImpl implements ICountryLandService {
     }
 
     @Override
-    public void batchImport(List<String[]> list) throws BaseException {
+    public void batchImport(List<String[]> list,EnterpriseModeVo enterpriseModeVo) throws BaseException {
         List<CountryLandModel> entityList = new ArrayList<>(list.size());
             for (String[] str : list) {
                 CountryLandModel countryLandModel = new CountryLandModel();
                 if (str.length == 5) {
                     countryLandModel.setId(IdWorker.getIdStr(countryLandModel));
+                    countryLandModel.setYear(enterpriseModeVo.getYear());
+                    countryLandModel.setMonth(enterpriseModeVo.getMonth());
                     countryLandModel.setEnterPriseName(StringUtils.isEmpty(str[0]) ? " " : str[0]);
                     countryLandModel.setEnterPriseCode(StringUtils.isEmpty(str[1]) ? " " : str[1]);
                     countryLandModel.setRegisterArea(StringUtils.isEmpty(str[2]) ? 0 : Double.valueOf(str[2]));
