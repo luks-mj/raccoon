@@ -14,4 +14,4 @@ npm run dev
 # build for production and view the bundle analyzer report
 npm run build --report
 ```
--- 依赖安装成功之后，运行 访问 http://localhost:8080/#/
+> 依赖安装成功之后，运行 访问 http://localhost:8080/#/
