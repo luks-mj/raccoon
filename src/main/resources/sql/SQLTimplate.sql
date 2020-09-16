@@ -5,6 +5,8 @@ DROP TABLE IF EXISTS db_country_land;
 
 CREATE TABLE `db_country_land` (
   `ID` varchar(25)  NOT NULL COMMENT '国土数据主键ID',
+  `YEAR`   decimal(18,0) DEFAULT NULL COMMENT '评价年份',
+  `MONTH`   decimal(18,0) DEFAULT NULL COMMENT '评价月份',
   `ENTERPRISE_NAME` varchar(300) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '国土数据企业名称',
   `ENTERPRISE_CODE` varchar(50) DEFAULT NULL COMMENT '统一社会信用代码',
   `REGISTER_AREA` double DEFAULT NULL COMMENT '登记用地面积',
@@ -17,6 +19,7 @@ CREATE TABLE `db_country_land` (
   PRIMARY KEY (`ID`),
   UNIQUE KEY `idx_enterprise_code` (`ENTERPRISE_CODE`),
   KEY `idx_enterprise_name` (`ENTERPRISE_NAME`),
+  KEY `idx_year_month` (`YEAR`,`MONTH`),
   KEY `idx_enterprise_name_createtime` (`CREATE_DATE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='记录企业国土数据资源数据信息';
 
@@ -25,6 +28,8 @@ DROP TABLE IF EXISTS db_country_taxation;
 
 CREATE TABLE `db_country_taxation` (
   `ID` varchar(25) NOT NULL COMMENT '国税数据主键ID',
+  `YEAR`   decimal(18,0) DEFAULT NULL COMMENT '评价年份',
+  `MONTH`   decimal(18,0) DEFAULT NULL COMMENT '评价月份',
   `ENTERPRISE_NAME` varchar(300) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '国税数据企业名称',
   `ENTERPRISE_CODE` varchar(50) DEFAULT NULL COMMENT '统一社会信用代码',
   `TAXATION_DATA` double DEFAULT NULL COMMENT '实际缴纳国税金额（万元）',
@@ -35,6 +40,7 @@ CREATE TABLE `db_country_taxation` (
   `REMARK` varchar(2000) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '记录备注。',
   PRIMARY KEY (`ID`),
   UNIQUE KEY `idx_enterprise_code` (`ENTERPRISE_CODE`),
+  KEY `idx_year_month` (`YEAR`,`MONTH`),
   KEY `idx_enterprise_name` (`ENTERPRISE_NAME`),
   KEY `idx_enterprise_name_createtime` (`CREATE_DATE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='记录企业国税数据资源数据信息';
@@ -43,6 +49,8 @@ CREATE TABLE `db_country_taxation` (
 DROP TABLE IF EXISTS db_count_enterprise;
 CREATE TABLE `db_count_enterprise` (
   `ID` varchar(25) NOT NULL COMMENT '主键ID',
+  `YEAR`   decimal(18,0) DEFAULT NULL COMMENT '评价年份',
+  `MONTH`   decimal(18,0) DEFAULT NULL COMMENT '评价月份',
   `ENTERPRISE_NAME` varchar(300) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '企业名称',
   `ENTERPRISE_CODE` varchar(50) DEFAULT NULL COMMENT '统一社会信用代码',
   `INDUSTRY_PRO` double DEFAULT NULL COMMENT '工业产值（万元）',
@@ -56,6 +64,7 @@ CREATE TABLE `db_count_enterprise` (
   `REMARK` varchar(2000) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '记录备注。',
   PRIMARY KEY (`ID`),
   UNIQUE KEY `idx_enterprise_code` (`ENTERPRISE_CODE`),
+  KEY `idx_year_month` (`YEAR`,`MONTH`),
   KEY `idx_enterprise_name` (`ENTERPRISE_NAME`),
   KEY `idx_enterprise_name_createtime` (`CREATE_DATE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='记录企业统计源数据信息';
