@@ -15,3 +15,22 @@ npm run dev
 npm run build --report
 ```
 > 依赖安装成功之后，运行 访问 http://localhost:8080/#/
+
+```javascript
+ES6 增强语法
+
+let name = 'scret'
+let age = 15
+
+ES6 之前：
+let obj = {
+  name: name,
+  age: age
+}
+ ES6 之后：
+ let obj2 = {
+   name,age
+ }
+
+
+```
