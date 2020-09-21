@@ -54,7 +54,7 @@ public class CountryLandDataController {
                     result.setInfo(resultList);
                     return result;
                 }
-                countryLandService.batchImport(reList);
+                countryLandService.batchImport(reList,enterpriseModeVo);
                 result.setMeta(HttpStatus.OK.value(),"");
             }
         } catch (Exception e) {

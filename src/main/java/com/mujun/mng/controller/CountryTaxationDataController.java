@@ -13,11 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,7 +35,7 @@ public class CountryTaxationDataController {
     // 国税资源数据导入
     @ApiOperation(value = "国税资源数据批量导入", notes = "国税数据导入")
     @RequestMapping(value = "/countryTaxation/batchImport", method = RequestMethod.POST)
-    public RestResult batchQueryInstType(@RequestParam("file") MultipartFile file, Model model, HttpServletRequest request) {
+    public RestResult batchQueryInstType(@RequestParam("file") MultipartFile file, @RequestBody EnterpriseModeVo enterpriseModeVo) {
         RestResult result = new RestResult();
         List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
         try {
@@ -58,7 +54,7 @@ public class CountryTaxationDataController {
                     result.setMeta(HttpStatus.INTERNAL_SERVER_ERROR.value(),"文件导入一次最多支持" + MAX_AMOUNT + "条记录!");
                     return result;
                 }
-                countryTaxationService.batchImport(reList);
+                countryTaxationService.batchImport(reList,enterpriseModeVo);
                 result.setInfo(resultList);
                 result.setMeta(HttpStatus.OK.value(),"导入完成");
 

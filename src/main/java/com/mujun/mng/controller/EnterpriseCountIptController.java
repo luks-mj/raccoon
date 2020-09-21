@@ -5,20 +5,16 @@ import com.mujun.mng.commons.config.SrConstantMDA;
 import com.mujun.mng.commons.model.RestResult;
 import com.mujun.mng.commons.utils.ExcelUtil;
 import com.mujun.mng.service.impl.EnterpriseCountServiceImpl;
+import com.mujun.mng.vo.EnterpriseModeVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +32,7 @@ public class EnterpriseCountIptController {
     // 国税资源数据导入
     @ApiOperation(value = "企业统计数据导入", notes = "企业统计数据导入")
     @RequestMapping(value = "/enterpriseCount/batchImport", method = RequestMethod.POST)
-    public RestResult batchQueryInstType(@RequestParam("file") MultipartFile file, Model model, HttpServletRequest request) {
+    public RestResult batchQueryInstType(@RequestParam("file") MultipartFile file, @RequestBody EnterpriseModeVo enterpriseModeVo) {
         RestResult result = new RestResult();
         List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
         try {
@@ -55,7 +51,7 @@ public class EnterpriseCountIptController {
                     result.setMeta(HttpStatus.BAD_REQUEST.value(),"文件导入一次最多支持" + MAX_AMOUNT + "条记录!");
                     return result;
                 }
-                enterpriseCountService.batchImport(reList);
+                enterpriseCountService.batchImport(reList,enterpriseModeVo);
                 result.setMeta(HttpStatus.OK.value(),"导入完成！");
             }
         } catch (Exception e) {
