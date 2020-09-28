@@ -51,7 +51,7 @@
         name: "Home",
         data() {
             return {
-                userinfo: JSON.parse(window.sessionStorage.getItem("user"))
+                user: JSON.parse(window.sessionStorage.getItem("user"))
             }
         },
         computed: {
