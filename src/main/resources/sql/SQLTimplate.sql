@@ -16,6 +16,32 @@ CREATE TABLE `user` (
  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
+INSERT INTO `enterprise_mng`.`user` (
+	`id`,
+	`name`,
+	`phone`,
+	`telephone`,
+	`address`,
+	`enabled`,
+	`username`,
+	`password`,
+	`userface`,
+	`remark`
+)
+VALUES
+	(
+		'3',
+		'系统管理员',
+		'18568887789',
+		'029-82881234',
+		'深圳南山',
+		'1',
+		'admin',
+		'$2a$10$ySG2lkvjFHY5O0./CPIE1OI8VJsuKYEzOYzqIa7AJR6sEgSzUFOAm',
+		'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515233756&di=0856d923a0a37a87fd26604a2c871370&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.qqzhi.com%2Fuploadpic%2F2014-09-27%2F041716704.jpg',
+		NULL
+	);
+
 -- 菜单
 CREATE TABLE `menu` (
  `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -32,6 +58,166 @@ CREATE TABLE `menu` (
  KEY `parentId` (`parentId`),
  CONSTRAINT `menu_ibfk_1` FOREIGN KEY (`parentId`) REFERENCES `menu` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+
+-- 一级菜单配置项
+DELETE FROM  `enterprise_mng`.`menu`;
+INSERT INTO `enterprise_mng`.`menu` (
+	`id`,
+	`url`,
+	`path`,
+	`component`,
+	`name`,
+	`iconCls`,
+	`keepAlive`,
+	`requireAuth`,
+	`parentId`,
+	`enabled`
+)
+VALUES
+	(
+		'1',
+		'/',
+		NULL,
+		NULL,
+		'所有',
+		NULL,
+		NULL,
+		NULL,
+		NULL,
+		'1'
+	);
+
+INSERT INTO `enterprise_mng`.`menu` (
+	`id`,
+	`url`,
+	`path`,
+	`component`,
+	`name`,
+	`iconCls`,
+	`keepAlive`,
+	`requireAuth`,
+	`parentId`,
+	`enabled`
+)
+VALUES
+	(
+		'2',
+		'/',
+		'/home',
+		'Home',
+		'数据维护',
+		'fa fa-user-circle-o',
+		NULL,
+		'1',
+		'1',
+		'1'
+	);
+
+INSERT INTO `enterprise_mng`.`menu` (
+	`id`,
+	`url`,
+	`path`,
+	`component`,
+	`name`,
+	`iconCls`,
+	`keepAlive`,
+	`requireAuth`,
+	`parentId`,
+	`enabled`
+)
+VALUES
+	(
+		'3',
+		'/',
+		'/home',
+		'Home',
+		'数据审核',
+		'fa fa-address-card-o',
+		NULL,
+		'1',
+		'1',
+		'1'
+	);
+
+INSERT INTO `enterprise_mng`.`menu` (
+	`id`,
+	`url`,
+	`path`,
+	`component`,
+	`name`,
+	`iconCls`,
+	`keepAlive`,
+	`requireAuth`,
+	`parentId`,
+	`enabled`
+)
+VALUES
+	(
+		'4',
+		'/',
+		'/home',
+		'Home',
+		'统计报表',
+		'fa fa-money',
+		NULL,
+		'1',
+		'1',
+		'1'
+	);
+
+INSERT INTO `enterprise_mng`.`menu` (
+	`id`,
+	`url`,
+	`path`,
+	`component`,
+	`name`,
+	`iconCls`,
+	`keepAlive`,
+	`requireAuth`,
+	`parentId`,
+	`enabled`
+)
+VALUES
+	(
+		'5',
+		'/',
+		'/home',
+		'Home',
+		'统计管理',
+		'fa fa-bar-chart',
+		NULL,
+		'1',
+		'1',
+		'1'
+	);
+
+INSERT INTO `enterprise_mng`.`menu` (
+	`id`,
+	`url`,
+	`path`,
+	`component`,
+	`name`,
+	`iconCls`,
+	`keepAlive`,
+	`requireAuth`,
+	`parentId`,
+	`enabled`
+)
+VALUES
+	(
+		'6',
+		'/',
+		'/home',
+		'Home',
+		'系统管理',
+		'fa fa-windows',
+		NULL,
+		'1',
+		'1',
+		'1'
+	);
+
+
 
 -- 角色配置，默认初始值
 DROP TABLE IF EXISTS `role`;
@@ -53,6 +239,13 @@ CREATE TABLE `menu_role` (
  CONSTRAINT `menu_role_ibfk_1` FOREIGN KEY (`mid`) REFERENCES `menu` (`id`),
  CONSTRAINT `menu_role_ibfk_2` FOREIGN KEY (`rid`) REFERENCES `role` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=283 DEFAULT CHARSET=utf8;
+
+-- 插入菜单角色
+INSERT INTO `enterprise_mng`.`menu_role` (`id`, `mid`, `rid`) VALUES ('100', '7', '6');
+INSERT INTO `enterprise_mng`.`menu_role` (`id`, `mid`, `rid`) VALUES ('101', '23', '6');
+
+
+
 
 -- 用户角色
 DROP TABLE IF EXISTS `user_role`;

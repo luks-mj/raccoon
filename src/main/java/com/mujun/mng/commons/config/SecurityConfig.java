@@ -59,7 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/css/**", "/js/**", "/index.html", "/img/**", "/fonts/**", "/favicon.ico", "/verifyCode,/getVersion,/getConstant");
+        web.ignoring().antMatchers("/css/**", "/js/**", "/index.html", "/img/**", "/fonts/**", "/favicon.ico", "/verifyCode","/getVersion","/getConstant");
     }
 
 
@@ -73,6 +73,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     hr.setPassword(null);
                     RestResult restResult = new RestResult();
                     restResult.setMeta(HttpStatus.OK.value(),"登录成功！");
+                    restResult.setInfo(hr);
                     String s = new ObjectMapper().writeValueAsString(restResult);
                     out.write(s);
                     out.flush();

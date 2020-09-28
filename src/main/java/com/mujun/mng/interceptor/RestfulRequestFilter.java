@@ -6,16 +6,14 @@ import com.mujun.mng.commons.config.SrConstantMDA;
 import com.mujun.mng.controller.CountryLandDataController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(filterName = "RestfulRequestFilter",urlPatterns = "/*")
-@Component
+//@WebFilter(filterName = "RestfulRequestFilter",urlPatterns = "/*")
+//@Component
 public class RestfulRequestFilter implements Filter {
 
     private static Logger logger = LoggerFactory.getLogger(CountryLandDataController.class);
@@ -34,11 +32,11 @@ public class RestfulRequestFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
 
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS,PUT,DELETE");
-        response.setHeader("Access-Control-Max-Age", "0");
-        response.setHeader("Access-Control-Allow-Headers", "Content-Type,Content-Length, Authorization, Accept,X-Requested-With");
-        response.setHeader("Allow","GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS, PATCH");
+        String curOrigin = request.getHeader("Origin");
+        response.setHeader("Access-Control-Allow-Origin", curOrigin == null ? "true" : curOrigin);
+        response.setHeader("Access-Control-Allow-Credentials", "true");
+        response.setHeader("Access-Control-Allow-Methods", "POST, GET, PATCH, DELETE, PUT");
+        response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
         if (request.getMethod().equals("OPTIONS")) {
             response.setStatus(200);

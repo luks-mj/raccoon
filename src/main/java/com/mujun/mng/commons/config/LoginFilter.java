@@ -30,6 +30,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
                     "Authentication method not supported: " + request.getMethod());
         }
         String verify_code = (String) request.getSession().getAttribute("verify_code");
+        System.out.println(request.getSession().getId());
         if (request.getContentType().contains(MediaType.APPLICATION_JSON_VALUE) || request.getContentType().contains(MediaType.APPLICATION_JSON_UTF8_VALUE)) {
             Map<String, String> loginData = new HashMap<>();
             try {
