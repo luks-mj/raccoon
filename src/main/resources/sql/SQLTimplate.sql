@@ -1,5 +1,121 @@
 -- sql 表创建脚本 --
 
+-- 系统用户
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+ `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'userID',
+ `name` varchar(32) DEFAULT NULL COMMENT '姓名',
+ `phone` char(11) DEFAULT NULL COMMENT '手机号码',
+ `telephone` varchar(16) DEFAULT NULL COMMENT '住宅电话',
+ `address` varchar(64) DEFAULT NULL COMMENT '联系地址',
+ `enabled` tinyint(1) DEFAULT '1',
+ `username` varchar(255) DEFAULT NULL COMMENT '用户名',
+ `password` varchar(255) DEFAULT NULL COMMENT '密码',
+ `userface` varchar(255) DEFAULT NULL,
+ `remark` varchar(255) DEFAULT NULL,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+
+-- 菜单
+CREATE TABLE `menu` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `url` varchar(64) DEFAULT NULL,
+ `path` varchar(64) DEFAULT NULL,
+ `component` varchar(64) DEFAULT NULL,
+ `name` varchar(64) DEFAULT NULL,
+ `iconCls` varchar(64) DEFAULT NULL,
+ `keepAlive` tinyint(1) DEFAULT NULL,
+ `requireAuth` tinyint(1) DEFAULT NULL,
+ `parentId` int(11) DEFAULT NULL,
+ `enabled` tinyint(1) DEFAULT '1',
+ PRIMARY KEY (`id`),
+ KEY `parentId` (`parentId`),
+ CONSTRAINT `menu_ibfk_1` FOREIGN KEY (`parentId`) REFERENCES `menu` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+
+-- 角色配置，默认初始值
+DROP TABLE IF EXISTS `role`;
+CREATE TABLE `role` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `name` varchar(64) DEFAULT NULL,
+ `nameZh` varchar(64) DEFAULT NULL COMMENT '角色名称',
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+
+-- 菜单角色
+CREATE TABLE `menu_role` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `mid` int(11) DEFAULT NULL,
+ `rid` int(11) DEFAULT NULL,
+ PRIMARY KEY (`id`),
+ KEY `mid` (`mid`),
+ KEY `rid` (`rid`),
+ CONSTRAINT `menu_role_ibfk_1` FOREIGN KEY (`mid`) REFERENCES `menu` (`id`),
+ CONSTRAINT `menu_role_ibfk_2` FOREIGN KEY (`rid`) REFERENCES `role` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=283 DEFAULT CHARSET=utf8;
+
+-- 用户角色
+DROP TABLE IF EXISTS `user_role`;
+CREATE TABLE `user_role` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `urid` int(11) DEFAULT NULL,
+ `rid` int(11) DEFAULT NULL,
+ PRIMARY KEY (`id`),
+ KEY `rid` (`rid`),
+ KEY `user_role_ibfk_1` (`urid`),
+ CONSTRAINT `user_role_ibfk_1` FOREIGN KEY (`urid`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+ CONSTRAINT `user_role_ibfk_2` FOREIGN KEY (`rid`) REFERENCES `role` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8;
+
+-- 导入初始值
+INSERT INTO `role` (`id`, `name`, `nameZh`)
+VALUES
+ (
+   1,
+   'ROLE_manager',
+   '省管理员'
+ ),
+ (
+   2,
+   'ROLE_personnel',
+   '地市管理员'
+ ),
+ (
+   3,
+   'ROLE_recruiter',
+   '县普通用户'
+ ),
+ (
+   4,
+   'ROLE_train',
+   '地市普通用户'
+ ),
+ (
+   5,
+   'ROLE_performance',
+   '访客'
+ ),
+ (
+   6,
+   'ROLE_admin',
+   '系统管理员'
+ ),
+ (
+   13,
+   'ROLE_test2',
+   '测试角色2'
+ ),
+ (
+   14,
+   'ROLE_test1',
+   '测试角色1'
+ ),
+ (
+   17,
+   'ROLE_test3',
+   '测试角色3'
+ );
+
 -- 国土数据导入模型
 DROP TABLE IF EXISTS db_country_land;
 

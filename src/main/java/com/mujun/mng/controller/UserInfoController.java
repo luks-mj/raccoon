@@ -43,14 +43,14 @@ public class UserInfoController {
     @ApiOperation(value="新增用户",notes="用户信息查询")
     @RequestMapping(value = "/insertUser", method = RequestMethod.POST)
     public RestResult insertUser(){
-        RestResult queryResult = new RestResult();
-        User user = new User();
-        user.setAge(18);
-        user.setName("凯撒");
-        Integer result = userService.insert(user);
-        queryResult.setInfo(result);
-        queryResult.setMeta(HttpStatus.ACCEPTED.value(),"");
+//        RestResult queryResult = new RestResult();
+//        User user = new User();
+//        user.setAge(18);
+//        user.setName("凯撒");
+//        Integer result = userService.insert(user);
+//        queryResult.setInfo(result);
+//        queryResult.setMeta(HttpStatus.ACCEPTED.value(),"");
 
-        return  queryResult;
+        return  null;
     }
 }

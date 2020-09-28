@@ -2,11 +2,11 @@ let proxyObj = {};
 const CompressionPlugin = require("compression-webpack-plugin");
 proxyObj['/ws'] = {
     ws: true,
-    target: "ws://localhost:8081"
+    target: "ws://localhost:8001"
 };
 proxyObj['/'] = {
     ws: false,
-    target: 'http://localhost:8001',
+    target: 'http://localhost:8001/api/service',
     changeOrigin: true,
     pathRewrite: {
         '^/': ''
@@ -15,7 +15,7 @@ proxyObj['/'] = {
 module.exports = {
     devServer: {
         host: 'localhost',
-        port: 8080,
+        port: 8090,
         proxy: proxyObj
     },
     configureWebpack: config => {
