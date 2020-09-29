@@ -194,7 +194,7 @@
                 this.passwdDialogVisible = true;
             },
             initHr() {
-                this.getRequest('/hr/info').then(resp => {
+                this.getRequest('/user/info').then(resp => {
                     if (resp) {
                         this.hr = resp;
                         this.hr2 = Object.assign({}, this.hr);

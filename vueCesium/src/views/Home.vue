@@ -7,7 +7,7 @@
                     <el-button icon="el-icon-bell" type="text" style="margin-right: 8px;color: #000000;" size="normal" @click="goChat"></el-button>
                     <el-dropdown class="userInfo" @command="commandHandler">
   <span class="el-dropdown-link">
-    {{user.name}}<i><img src="../../public/jingyi.jpg" alt=""></i>
+   欢迎您， {{user.name}}<i><img src="../../public/jingyi.jpg" alt=""></i>
   </span>
                         <el-dropdown-menu slot="dropdown">
                             <el-dropdown-item command="userinfo">个人中心</el-dropdown-item>
