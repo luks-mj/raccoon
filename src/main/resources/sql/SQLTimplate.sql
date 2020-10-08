@@ -59,166 +59,6 @@ CREATE TABLE `menu` (
  CONSTRAINT `menu_ibfk_1` FOREIGN KEY (`parentId`) REFERENCES `menu` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
--- 一级菜单配置项
-DELETE FROM  `enterprise_mng`.`menu`;
-INSERT INTO `enterprise_mng`.`menu` (
-	`id`,
-	`url`,
-	`path`,
-	`component`,
-	`name`,
-	`iconCls`,
-	`keepAlive`,
-	`requireAuth`,
-	`parentId`,
-	`enabled`
-)
-VALUES
-	(
-		'1',
-		'/',
-		NULL,
-		NULL,
-		'所有',
-		NULL,
-		NULL,
-		NULL,
-		NULL,
-		'1'
-	);
-
-INSERT INTO `enterprise_mng`.`menu` (
-	`id`,
-	`url`,
-	`path`,
-	`component`,
-	`name`,
-	`iconCls`,
-	`keepAlive`,
-	`requireAuth`,
-	`parentId`,
-	`enabled`
-)
-VALUES
-	(
-		'2',
-		'/',
-		'/home',
-		'Home',
-		'数据维护',
-		'fa fa-user-circle-o',
-		NULL,
-		'1',
-		'1',
-		'1'
-	);
-
-INSERT INTO `enterprise_mng`.`menu` (
-	`id`,
-	`url`,
-	`path`,
-	`component`,
-	`name`,
-	`iconCls`,
-	`keepAlive`,
-	`requireAuth`,
-	`parentId`,
-	`enabled`
-)
-VALUES
-	(
-		'3',
-		'/',
-		'/home',
-		'Home',
-		'数据审核',
-		'fa fa-address-card-o',
-		NULL,
-		'1',
-		'1',
-		'1'
-	);
-
-INSERT INTO `enterprise_mng`.`menu` (
-	`id`,
-	`url`,
-	`path`,
-	`component`,
-	`name`,
-	`iconCls`,
-	`keepAlive`,
-	`requireAuth`,
-	`parentId`,
-	`enabled`
-)
-VALUES
-	(
-		'4',
-		'/',
-		'/home',
-		'Home',
-		'统计报表',
-		'fa fa-money',
-		NULL,
-		'1',
-		'1',
-		'1'
-	);
-
-INSERT INTO `enterprise_mng`.`menu` (
-	`id`,
-	`url`,
-	`path`,
-	`component`,
-	`name`,
-	`iconCls`,
-	`keepAlive`,
-	`requireAuth`,
-	`parentId`,
-	`enabled`
-)
-VALUES
-	(
-		'5',
-		'/',
-		'/home',
-		'Home',
-		'统计管理',
-		'fa fa-bar-chart',
-		NULL,
-		'1',
-		'1',
-		'1'
-	);
-
-INSERT INTO `enterprise_mng`.`menu` (
-	`id`,
-	`url`,
-	`path`,
-	`component`,
-	`name`,
-	`iconCls`,
-	`keepAlive`,
-	`requireAuth`,
-	`parentId`,
-	`enabled`
-)
-VALUES
-	(
-		'6',
-		'/',
-		'/home',
-		'Home',
-		'系统管理',
-		'fa fa-windows',
-		NULL,
-		'1',
-		'1',
-		'1'
-	);
-
-
-
 -- 角色配置，默认初始值
 DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role` (
@@ -239,13 +79,6 @@ CREATE TABLE `menu_role` (
  CONSTRAINT `menu_role_ibfk_1` FOREIGN KEY (`mid`) REFERENCES `menu` (`id`),
  CONSTRAINT `menu_role_ibfk_2` FOREIGN KEY (`rid`) REFERENCES `role` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=283 DEFAULT CHARSET=utf8;
-
--- 插入菜单角色
-INSERT INTO `enterprise_mng`.`menu_role` (`id`, `mid`, `rid`) VALUES ('100', '7', '6');
-INSERT INTO `enterprise_mng`.`menu_role` (`id`, `mid`, `rid`) VALUES ('101', '23', '6');
-
-
-
 
 -- 用户角色
 DROP TABLE IF EXISTS `user_role`;
@@ -380,13 +213,22 @@ CREATE TABLE `db_count_enterprise` (
 
 
 --  企业信息数据导入模型
+DROP TABLE IF EXISTS `db_enterprise`;
 CREATE TABLE `db_enterprise` (
-  `ID` varchar(25) NOT NULL COMMENT '主键ID',
+  `ID` varchar(25) COLLATE utf8mb4_bin NOT NULL COMMENT '主键ID',
+  `YEAR` decimal(18,0) DEFAULT NULL,
+  `MONTH` decimal(18,0) DEFAULT NULL,
   `ENTERPRISE_NAME` varchar(300) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '企业名称',
-  `ENTERPRISE_CODE` varchar(50) DEFAULT NULL COMMENT '统一社会信用代码',
-  `TAXATION_DATA` double DEFAULT NULL COMMENT '实际缴纳国税金额（万元）',
-  `TAXATION_DETAIL` varchar(2000) COLLATE utf8mb4_bin DEFAULT NULL COMMENT'国税税费明细',
-  `USER_ID`   decimal(18,0) DEFAULT NULL COMMENT '记录导入用户ID',
+  `ENTERPRISE_CODE` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '统一社会信用代码',
+  `ENTERPRISE_SCALE` varchar(200) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '企业规模',
+  `INDUSTRY_TYPE` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '行业类别',
+  `STATUS` varchar(100) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '状态',
+  `ENTERPRISE_TYPE` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL,
+  `BELONG_NETWORK` varchar(200) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '所属网格',
+  `DETAIL_ADDRESS` varchar(500) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '详细地址',
+  `CONTACT` varchar(50) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '联系人',
+  `CONTACT_NUM` varchar(50) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '联系电话',
+  `USER_ID` decimal(18,0) DEFAULT NULL COMMENT '记录导入用户ID',
   `CREATE_DATE` datetime DEFAULT NULL COMMENT '记录首次创建的时间。',
   `UPDATE_DATE` datetime DEFAULT NULL COMMENT '记录每次修改的时间。',
   `REMARK` varchar(2000) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '记录备注。',
@@ -394,3 +236,45 @@ CREATE TABLE `db_enterprise` (
   UNIQUE KEY `idx_enterprise_code` (`ENTERPRISE_CODE`),
   KEY `idx_enterprise_name_createtime` (`CREATE_DATE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='记录企业国税数据资源数据信息';
+
+-- 一级菜单配置项
+DELETE FROM  `enterprise_mng`.`menu`;
+INSERT INTO `menu` VALUES ('1', '/', null, null, '所有', null, null, null, null, '1');
+INSERT INTO `menu` VALUES ('2', '/', '/home', 'Home', '系统信息', 'fa fa-user-circle-o', null, '1', '1', '1');
+INSERT INTO `menu` VALUES ('3', '/', '/home', 'Home', '数据维护', 'fa fa-address-card-o', null, '1', '1', '1');
+INSERT INTO `menu` VALUES ('4', '/', '/home', 'Home', '采集核对', 'fa fa-money', null, '1', '1', '1');
+INSERT INTO `menu` VALUES ('5', '/', '/home', 'Home', '统计管理', 'fa fa-bar-chart', null, '1', '1', '1');
+INSERT INTO `menu` VALUES ('6', '/', '/home', 'Home', '系统管理', 'fa fa-windows', null, '1', '1', '1');
+INSERT INTO `menu` VALUES ('7', '/employee/basic/**', '/emp/basic', 'EmpBasic', '员工资料', 'fa fa-windows', null, '1', '6', '1');
+INSERT INTO `menu` VALUES ('8', '/sys/basic/**', '/sys/basic', 'SysBasic', '系统用户管理', 'fa fa-windows', null, '1', '6', '1');
+INSERT INTO `menu` VALUES ('9', '/sys/sysHr/**', '/sys/sysHr', 'SysHr', '角色权限管理', 'fa fa-windows', null, '1', '6', '1');
+INSERT INTO `menu` VALUES ('10', '/dataImport/dataLand/**', '/dataImport/dataLand', 'DataLand', '国土数据导入', 'fa fa-money', null, '1', '4', '1');
+INSERT INTO `menu` VALUES ('11', '/dataImport/dataTax/**', '/dataImport/dataTax', 'DataTax', '税务数据导入', 'fa fa-money', null, '1', '4', '1');
+INSERT INTO `menu` VALUES ('12', '/dataImport/dataCount/**', '/dataImport/dataCount', 'DataCount', '统计数据导入', 'fa fa-money', null, '1', '4', '1');
+INSERT INTO `menu` VALUES ('13', '/dataImport/dataCount/**', '/dataImport/dataCount', 'DataCount', '系统信息总览', 'fa fa-money', null, '1', '2', '1');
+INSERT INTO `menu` VALUES ('14', '/dataImport/dataEnterprise/**', '/dataImport/dataEnterprise', 'DataEnterprise', '企业信息导入', 'fa fa-money', null, '1', '4', '1');
+INSERT INTO `menu` VALUES ('15', '/dataImport/dataCount/**', '/dataImport/dataCount', 'DataCount', '租赁关系管理', 'fa fa-money', null, '1', '4', '1');
+INSERT INTO `menu` VALUES ('16', '/dataImport/dataCount/**', '/dataImport/dataCount', 'DataCount', '综合数据列表', 'fa fa-money', null, '1', '3', '1');
+INSERT INTO `menu` VALUES ('17', '/dataImport/dataCount/**', '/dataImport/dataCount', 'DataCount', '综合评价办法', 'fa fa-money', null, '1', '3', '1');
+INSERT INTO `menu` VALUES ('18', '/dataImport/dataCount/**', '/dataImport/dataCount', 'DataCount', '初次评价结果', 'fa fa-money', null, '1', '3', '1');
+INSERT INTO `menu` VALUES ('19', '/dataImport/dataCount/**', '/dataImport/dataCount', 'DataCount', '定档提档降档', 'fa fa-money', null, '1', '3', '1');
+INSERT INTO `menu` VALUES ('20', '/dataImport/dataCount/**', '/dataImport/dataCount', 'DataCount', '加分扣分处理', 'fa fa-money', null, '1', '3', '1');
+INSERT INTO `menu` VALUES ('21', '/dataImport/dataCount/**', '/dataImport/dataCount', 'DataCount', '最终评价结果', 'fa fa-money', null, '1', '3', '1');
+
+-- 插入菜单角色
+DELETE FROM  `enterprise_mng`.`menu_role`;
+INSERT INTO `menu_role` VALUES ('288', '7', '6');
+INSERT INTO `menu_role` VALUES ('289', '8', '6');
+INSERT INTO `menu_role` VALUES ('290', '9', '6');
+INSERT INTO `menu_role` VALUES ('291', '10', '6');
+INSERT INTO `menu_role` VALUES ('292', '11', '6');
+INSERT INTO `menu_role` VALUES ('293', '12', '6');
+INSERT INTO `menu_role` VALUES ('294', '13', '6');
+INSERT INTO `menu_role` VALUES ('295', '14', '6');
+INSERT INTO `menu_role` VALUES ('296', '15', '6');
+INSERT INTO `menu_role` VALUES ('297', '16', '6');
+INSERT INTO `menu_role` VALUES ('298', '17', '6');
+INSERT INTO `menu_role` VALUES ('299', '18', '6');
+INSERT INTO `menu_role` VALUES ('300', '19', '6');
+INSERT INTO `menu_role` VALUES ('301', '20', '6');
+INSERT INTO `menu_role` VALUES ('302', '21', '6');
