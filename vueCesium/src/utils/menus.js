@@ -39,7 +39,11 @@ export const formatRoutes = (routes) => {
                 } else if (component.startsWith("Emp")) {
                     require(['../views/emp/' + component + '.vue'], resolve);
                 }else if(component.startsWith("Sys")){
+                    console.log(component);
                   require(['../views/sys/' + component + '.vue'], resolve);
+                }else if(component.startsWith("Data")){
+                    console.log(component);
+                    require(['../views/dataImport/' + component + '.vue'], resolve);
                 }
             }
         }

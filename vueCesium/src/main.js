@@ -101,18 +101,22 @@ Vue.prototype.$alert = MessageBox.alert
 Vue.prototype.$confirm = MessageBox.confirm
 
 import {postRequest} from "./utils/api";
+import {postMultRequest} from "./utils/api";
 import {postKeyValueRequest} from "./utils/api";
 import {putRequest} from "./utils/api";
 import {deleteRequest} from "./utils/api";
 import {getRequest} from "./utils/api";
 import {initMenu} from "./utils/menus";
 import 'font-awesome/css/font-awesome.min.css'
+import constant from './utils/constant/urlConstants';
 
 Vue.prototype.postRequest = postRequest;
+Vue.prototype.postMultRequest = postMultRequest;
 Vue.prototype.postKeyValueRequest = postKeyValueRequest;
 Vue.prototype.putRequest = putRequest;
 Vue.prototype.deleteRequest = deleteRequest;
 Vue.prototype.getRequest = getRequest;
+Vue.prototype.$CST = constant;
 
 Vue.config.productionTip = false
 

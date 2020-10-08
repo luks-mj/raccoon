@@ -2,7 +2,7 @@
     <div>
         <el-container>
             <el-header class="homeHeader">
-                <div class="title">亩均评价系统</div>
+                <div class="title">工业企业综合评价系统-桐庐经济开发区</div>
                 <div>
                     <el-button icon="el-icon-bell" type="text" style="margin-right: 8px;color: #000000;" size="normal" @click="goChat"></el-button>
                     <el-dropdown class="userInfo" @command="commandHandler">

@@ -56,6 +56,13 @@ export const postRequest = (url, params) => {
         data: params
     })
 }
+export const postMultRequest = (url, params) => {
+    return axios({
+        method: 'post',
+        url: `${base}${url}`,
+        data: params,
+    })
+}
 export const putRequest = (url, params) => {
     return axios({
         method: 'put',
@@ -74,6 +81,9 @@ export const deleteRequest = (url, params) => {
     return axios({
         method: 'delete',
         url: `${base}${url}`,
-        params: params
+        data: params,
+        headers: {
+            'Content-Type': 'application/json'
+        }
     })
 }
