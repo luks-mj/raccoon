@@ -16,7 +16,7 @@ import java.util.Collection;
 public class CustomUrlDecisionManager implements AccessDecisionManager {
     @Override
     public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes) throws AccessDeniedException, InsufficientAuthenticationException {
-        for (ConfigAttribute configAttribute : configAttributes) {
+        /*for (ConfigAttribute configAttribute : configAttributes) {
             String needRole = configAttribute.getAttribute();
             if ("ROLE_LOGIN".equals(needRole)) {
                 if (authentication instanceof AnonymousAuthenticationToken) {
@@ -32,7 +32,8 @@ public class CustomUrlDecisionManager implements AccessDecisionManager {
                 }
             }
         }
-        throw new AccessDeniedException("权限不足，请联系管理员!");
+        throw new AccessDeniedException("权限不足，请联系管理员!");*/
+        return;
     }
 
     @Override

@@ -6,14 +6,16 @@ import com.mujun.mng.commons.config.SrConstantMDA;
 import com.mujun.mng.controller.CountryLandDataController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-//@WebFilter(filterName = "RestfulRequestFilter",urlPatterns = "/*")
-//@Component
+@WebFilter(filterName = "RestfulRequestFilter",urlPatterns = "/*")
+@Component
 public class RestfulRequestFilter implements Filter {
 
     private static Logger logger = LoggerFactory.getLogger(CountryLandDataController.class);

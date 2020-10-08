@@ -5,6 +5,7 @@ import com.mujun.mng.commons.config.SrConstantMDA;
 import com.mujun.mng.commons.exception.BaseException;
 import com.mujun.mng.commons.model.RestResult;
 import com.mujun.mng.commons.utils.ExcelUtil;
+import com.mujun.mng.commons.utils.HttpServiceUtils;
 import com.mujun.mng.service.impl.CountryLandServiceImpl;
 import com.mujun.mng.vo.EnterpriseModeVo;
 import io.swagger.annotations.Api;
@@ -35,11 +36,23 @@ public class CountryLandDataController {
     // 国土资源数据导入
     @ApiOperation(value = "国土资源数据批量导入", notes = "国土数据导入")
     @RequestMapping(value = "/countryLand/batchImport", method = RequestMethod.POST)
-    public RestResult batchQueryInstType(@RequestParam("file") MultipartFile file, Model model, @RequestBody EnterpriseModeVo enterpriseModeVo) {
+    public RestResult batchQueryInstType(@RequestParam("file") MultipartFile file, Model model,  HttpServletRequest req ) {
         RestResult result = new RestResult();
+        EnterpriseModeVo enterpriseModeVo=new EnterpriseModeVo();
         List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
         try {
+            String year = null;//年
+            String month = null; //月
            String fileName = file.getOriginalFilename();
+            Map<String, Object> params = HttpServiceUtils.getParamsFromReq(req);
+            if(params.containsKey("year")){
+                year = params.get("year").toString();
+                enterpriseModeVo.setYear(Integer.parseInt(year));
+            }
+            if(params.containsKey("month")){
+                month = params.get("month").toString();
+                enterpriseModeVo.setMonth(Integer.parseInt(month));
+            }
             String str = fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length());
             if (str.toUpperCase().equals("XLS") || str.toUpperCase().equals("XLSX")) {
                 InputStream is = file.getInputStream();
